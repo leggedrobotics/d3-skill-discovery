@@ -10,7 +10,7 @@
 
 ## Overview
 
-This repository contains the code for the divide, discover, deploy paper.
+This repository contains the code for the [Divide Discover Deploy](https://leggedrobotics.github.io/d3-skill-discovery/)
 It contains environments and algorithms for unsupervised skill discovery.
 
 ```
