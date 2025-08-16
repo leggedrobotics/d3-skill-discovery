@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Factorized skill learning framework for unsupervised skill discovery in robotics with symmetry and style priors for safe deployment">
+  <meta name="keywords" content="unsupervised skill discovery, reinforcement learning, legged robots, quadruped, ANYmal, METRA, DIAYN">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D3: Divide, Discover, Deploy - Factorized Skill Learning</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- Navigation removed for cleaner presentation -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Divide, Discover, Deploy: Factorized Skill Learning<br>with Symmetry and Style Priors</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#">Rafael Cathomen</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Mayank Mittal</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="#">Marin Vlastelica</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Marco Hutter</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zurich,</span>
+            <span class="author-block"><sup>2</sup>NVIDIA</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><b>CoRL 2025 Oral</b> | Seoul, Korea</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- OpenReview Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-book-open"></i>
+                  </span>
+                  <span>OpenReview</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Unsupervised Skill Discovery (USD) allows agents to autonomously learn diverse behaviors without task-specific rewards. 
+            While recent USD methods have shown promise, their application to real-world robotics remains underexplored.
+          </p>
+          <p>
+            We propose a modular USD framework that employs <b>user-defined factorization</b> of the state space to learn disentangled skill representations.
+            Different skill discovery algorithms (METRA, DIAYN) are assigned to each factor based on the desired behavior. 
+            We introduce <b>symmetry-based inductive biases</b> tailored to individual factors and incorporate a <b>style factor</b> with regularization penalties 
+            to promote safe and robust behaviors.
+          </p>
+          <p>
+            We evaluate our framework using a quadrupedal robot (ANYmal-D) and demonstrate <b>zero-shot transfer</b> of learned skills to real hardware.
+            Our results show that factorization and symmetry lead to structured, human-interpretable behaviors, while the style factor enhances safety and diversity.
+            The learned skills perform on par with oracle policies on downstream navigation tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+
+
+
+    <!-- Overview. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our framework builds on <b>factorized MDPs</b> where the state space is divided into N factors (e.g., position, heading, height).
+            Each factor is paired with a skill component and an appropriate USD algorithm: <b>METRA</b> for unbounded factors like position 
+            (encouraging state-space exploration), and <b>DIAYN</b> for bounded factors like orientation (promoting distinguishable behaviors).
+          </p>
+          <p>
+            Key innovations include: (1) <b>Factor weighting</b> to handle conflicting skills, (2) <b>Symmetry augmentation</b> exploiting robot morphology,
+            (3) <b>Style factor</b> for safe fallback behaviors, and (4) <b>Regularization penalties</b> for hardware compatibility.
+          </p>
+        </div>
+        <div class="has-text-centered">
+          <figure class="image">
+            <img src="./static/images/overview_fig.png" alt="Method Overview" 
+                 style="max-width: 90%; height: auto; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          </figure>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Overview. -->
+
+    <!-- Hardware Deployment. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Hardware Deployment</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our learned skills transfer <b>zero-shot</b> from simulation to real hardware on the ANYmal-D quadruped. 
+            The structured skill space enables intuitive control where each skill dimension corresponds to a specific behavior.
+            Below we showcase various skills discovered through our framework, all from a <b>single policy</b> conditioned on different skill variables.
+          </p>
+          <p>
+            Key results: • <b>85% reduction</b> in unsafe contacts • <b>90% of oracle performance</b> on navigation 
+            • <b>20x better diversity</b> with mixed USD algorithms
+          </p>
+        </div>
+        
+        <!-- Video Grid -->
+        <div class="columns is-multiline is-centered">
+          <!-- First Row -->
+          <!-- Walking -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/walk.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Walking</b><br>
+              <span class="is-size-7">Controlled by position factor</span></p>
+            </div>
+          </div>
+          
+          <!-- Base Orientation -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/base_orientation.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Pitching</b><br>
+              <span class="is-size-7">Controlled by orientation factor</span></p>
+            </div>
+          </div>
+          
+          <!-- Walking Pitched -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/walk_pitched.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Walking + Pitching</b><br>
+              <span class="is-size-7">Controlled by position + orientation factors</span></p>
+            </div>
+          </div>
+          
+          <!-- Second Row -->
+          <!-- Base Heading -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/base_heading.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Rotation</b><br>
+              <span class="is-size-7">Controlled by heading factor</span></p>
+            </div>
+          </div>
+          
+          <!-- Base Height -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/base_height.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Crouching</b><br>
+              <span class="is-size-7">Controlled by height factor</span></p>
+            </div>
+          </div>
+          
+          <!-- Combined Skills -->
+          <div class="column is-4">
+            <div class="content">
+              <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 8px;">
+                <source src="./static/videos/base_height_and_heading.mp4" type="video/mp4">
+              </video>
+              <p class="has-text-centered"><b>Crouching + Rotation</b><br>
+              <span class="is-size-7">Controlled by height + heading factors</span></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="content has-text-centered" style="margin-top: 20px;">
+          <p class="has-text-grey is-size-6">
+            All behaviors were learned <b>entirely in simulation</b> without any task-specific rewards and deployed <b>zero-shot</b> on real hardware.
+            Skills are controlled by directly commanding the corresponding latent skill variables.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Hardware Deployment. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{cathomen2025d3,
+  author    = {Cathomen, Rafael and Mittal, Mayank and Vlastelica, Marin and Hutter, Marco},
+  title     = {Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Page contents © 2025 - All rights reserved</strong>
+          </p>
+          <p style="margin-top: 20px;">
+            This website template is taken from <a href="https://nerfies.github.io/">Nerfies</a>. 
+            The template is licensed under a <a rel="license" 
+            href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,2 +1,0 @@
-"""Goal tracking environments
-"""

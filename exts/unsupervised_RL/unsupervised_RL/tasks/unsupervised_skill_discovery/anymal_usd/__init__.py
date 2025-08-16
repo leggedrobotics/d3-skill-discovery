@@ -1,2 +1,0 @@
-"""Hide and seek env
-"""
