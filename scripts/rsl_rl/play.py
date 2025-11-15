@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Script to play a checkpoint for and agent trained via unsupervised skill discovery"""
 
 """Launch Isaac Sim Simulator first."""

@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 from isaaclab.utils import configclass
 from isaaclab_tasks.utils.wrappers.rsl_rl import (
     RslRlOnPolicyRunnerCfg,

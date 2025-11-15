@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 import gymnasium as gym
 
 from unsupervised_RL.tasks.downstream.velocity_tracking.velocity_tracking_base_env_cfg import VelocityTrackingEnvCfg

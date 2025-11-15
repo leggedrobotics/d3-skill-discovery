@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Common functions that can be used to create curriculum for the learning environment.
 
 The functions can be passed to the :class:`omni.isaac.lab.managers.CurriculumTermCfg` object to enable

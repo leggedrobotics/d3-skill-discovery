@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Configurations for velocity-based locomotion environments."""
 
 # We leave this file empty since we don't want to expose any configs in this package directly.

@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """ 
 Actor goals are used to condition the actor's policy on the goal. They can be constant (see: a single goal is all you need) 
 or change due to a goal distribution or due to the robot moving in the environment. 

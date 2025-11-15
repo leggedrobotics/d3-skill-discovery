@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Installation script for the 'unsupervised_RL' python package."""
 
 from setuptools import setup, find_packages

@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 asset_path: /home/rafael/Projects/MT/unsupervised_RL/exts/unsupervised_RL/unsupervised_RL/tasks/unsupervised_skill_discovery/anymal_usd/mdp/urdfs/sphere_robot.xml
 usd_dir: /home/rafael/Projects/MT/unsupervised_RL/exts/unsupervised_RL/unsupervised_RL/tasks/unsupervised_skill_discovery/anymal_usd/mdp/urdfs
 usd_file_name: output.usd

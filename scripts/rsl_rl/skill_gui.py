@@ -1,3 +1,7 @@
+# Copyright (c) 2025, Robotic Systems Lab - Legged Robotics at ETH Zürich
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 """skill_gui_modular.py - fully modular GUI for skill control."""
 
 from __future__ import annotations
