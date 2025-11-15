@@ -15,7 +15,7 @@ It contains environments and algorithms for unsupervised skill discovery.
 
 ```
 d3-skill-discovery/
-├── exts/unsupervised_RL/   # IsaacLab Environments
+├── exts/d3_skill_discovery/   # IsaacLab Environments
 ├── scripts/                # Training scripts
 └── rsl_rl/                 # Algorithms
 ```

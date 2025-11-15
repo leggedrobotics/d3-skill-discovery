@@ -44,17 +44,17 @@ import gymnasium as gym
 import os
 import torch
 
-from isaaclab.utils.dict import print_dict
-from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
-from isaaclab_tasks.utils.wrappers.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_onnx
-
 # Import extensions to set up environment tasks
-import unsupervised_RL.tasks  # noqa: F401
+import d3_skill_discovery.tasks  # noqa: F401
 from rsl_rl.intrinsic_motivation import StyleInstructor
 
 # import metra policy
 from rsl_rl.modules.metra.actor import StochasticActor
 from rsl_rl.runners import OnPolicyRunner
+
+from isaaclab.utils.dict import print_dict
+from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
+from isaaclab_tasks.utils.wrappers.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_onnx
 
 
 def main():
@@ -126,7 +126,7 @@ def main():
     # bad metra policy
     metra_obs = extras["observations"]["metra_policy"]
     bad_metra_policy_path = (
-        "/home/rafael/Projects/MT/CRL/unsupervised_RL/logs/rsl_rl/metra_anymal_test/anymal_loc_bad/model_2000.pt"
+        "/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_anymal_test/anymal_loc_bad/model_2000.pt"
     )
     metra_state_dict = torch.load(bad_metra_policy_path, weights_only=True)["model_state_dict"]["policy"]
     # make skill tensor

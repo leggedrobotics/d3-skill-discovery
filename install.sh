@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Installation script for d3-skill-discovery project
-# This script installs both the rsl_rl and unsupervised_RL packages in editable mode
+# This script installs both the rsl_rl and d3_skill_discovery packages in editable mode
 
 set -e  # Exit on any error
 
@@ -11,12 +11,12 @@ echo "Installing d3-skill-discovery packages..."
 echo "Installing rsl_rl package..."
 pip install -e ./rsl_rl/
 
-# Install unsupervised_RL package  
-echo "Installing unsupervised_RL package..."
-pip install -e ./exts/unsupervised_RL/
+# Install d3_skill_discovery package  
+echo "Installing d3_skill_discovery package..."
+pip install -e ./exts/d3_skill_discovery/
 
 echo "✅ All packages installed successfully!"
 echo ""
 echo "Installed packages:"
 echo "  - rsl_rl (editable)"
-echo "  - unsupervised_RL (editable)"
+echo "  - d3_skill_discovery (editable)"

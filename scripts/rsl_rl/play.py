@@ -44,6 +44,12 @@ import gymnasium as gym
 import os
 import torch
 
+from skill_gui import SkillControlGUI
+
+# Import extensions to set up environment tasks
+import d3_skill_discovery.tasks  # noqa: F401
+from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
+
 from isaaclab.utils.dict import print_dict
 from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
 from isaaclab_tasks.utils.wrappers.rsl_rl import (
@@ -52,11 +58,6 @@ from isaaclab_tasks.utils.wrappers.rsl_rl import (
     export_policy_as_jit,
     export_policy_as_onnx,
 )
-from skill_gui import SkillControlGUI
-
-# Import extensions to set up environment tasks
-import unsupervised_RL.tasks  # noqa: F401
-from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
 
 
 def main():

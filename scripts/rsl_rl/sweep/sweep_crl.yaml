@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 # https://docs.wandb.ai/guides/sweeps/sweep-config-keys/#distribution-options-for-random-and-bayesian-search
-program: unsupervised_RL/scripts/rsl_rl/train.py
+program: d3_skill_discovery/scripts/rsl_rl/train.py
 # program: scripts/rsl_rl/train.py
 description: "Sweep over hyperparameters for ant crl"
 method: bayes  # or 'grid', 'random'

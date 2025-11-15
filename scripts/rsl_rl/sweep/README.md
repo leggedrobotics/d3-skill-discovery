@@ -1,18 +1,18 @@
 ## Wandb Sweeps
 
-In the `unsupervised_RL/scripts/rsl_rl/sweep` directory, there are multiple files to configure, initialize and run sweeps.
+In the `d3_skill_discovery/scripts/rsl_rl/sweep` directory, there are multiple files to configure, initialize and run sweeps.
 
-In `unsupervised_RL/scripts/rsl_rl/sweep/sweep.yaml` you can define the sweep, i.e., which parameters to optimize.
+In `d3_skill_discovery/scripts/rsl_rl/sweep/sweep.yaml` you can define the sweep, i.e., which parameters to optimize.
 
-In  `unsupervised_RL/scripts/rsl_rl/sweep/initialize_sweep.py`, you initialize the sweep **ONCE**.
+In  `d3_skill_discovery/scripts/rsl_rl/sweep/initialize_sweep.py`, you initialize the sweep **ONCE**.
 ```bash
-python unsupervised_RL/scripts/rsl_rl/sweep/initialize_sweep.py --project_name your_sweep_name
+python d3_skill_discovery/scripts/rsl_rl/sweep/initialize_sweep.py --project_name your_sweep_name
 ```
- This will writhe the sweep id into `unsupervised_RL/scripts/rsl_rl/sweep/sweep_ids.json`.
+ This will writhe the sweep id into `d3_skill_discovery/scripts/rsl_rl/sweep/sweep_ids.json`.
 
 Once the sweep id is written, you can start the sweep by running.
 ```bash
-python unsupervised_RL/scripts/rsl_rl/sweep/sweep.py --project_name your_sweep_name
+python d3_skill_discovery/scripts/rsl_rl/sweep/sweep.py --project_name your_sweep_name
 ```
 
 This command can be run on multiple machines to parallelize the sweep. Note, this only works if the sweep id is the same.

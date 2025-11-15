@@ -58,9 +58,9 @@ import torch
 from datetime import datetime
 
 # Import extensions to set up environment tasks
-import unsupervised_RL.tasks  # noqa: F401
+import d3_skill_discovery.tasks  # noqa: F401
+from d3_skill_discovery.rsl_rl import RslCRlOnPolicyRunnerCfg
 from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
-from unsupervised_RL.rsl_rl import RslCRlOnPolicyRunnerCfg
 
 from isaaclab.envs import (
     DirectMARLEnv,
