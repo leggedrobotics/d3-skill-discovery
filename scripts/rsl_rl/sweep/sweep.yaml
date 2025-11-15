@@ -29,25 +29,6 @@ parameters:
   #   values: ["15.0", "30.0"]
 
 
-#   agent.policy.actor_layers:
-#     values: [[256, 128, 128], [512, 256, 256], [512, 512, 512]]
-#   # agent.policy.architecture:
-#   #   values: ["MLP", "MLP", "SimBa"]
-  # agent.usd.factor_weights_skew:
-  #   values: ["1.0", "1.5"]
-#   agent.num_steps_per_env:
-#     values: [25]
-
-
-
-
-#   - --task=Isaac-USD-Anymal-D-v0 
-#   - --task=Isaac-USD-AnymalBox-D-v0
-#   - --task=Isaac-USD-AnymalBoxes-D-v0
-#   - --task=Isaac-USD-AnymalRough-D-v0
-#   - --task=Isaac-USD-HL-Anymal-D-v0
-#   - --task=Isaac-USD-HL-Box-Anymal-D-v0
-
 
 command:
   - /isaac-sim/python.sh
@@ -56,13 +37,4 @@ command:
   - --num_envs=2048 #16384 8192 4096 2048 
   - --logger=wandb
   - --headless
-  # - --enable_cameras
-  # - --resume=RESUME
-  # - --load_run=usd_mddd_blind
-
-
   - ${args_no_hyphens}
-
-  # - --video
-  # - --video_length=400
-  # - --video_interval=150000
