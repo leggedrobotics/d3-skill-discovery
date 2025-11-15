@@ -1,33 +1,77 @@
-## Unsupervised Skill Discovery (USD)
-This directory contains unsupervised skill discovery algorithms based on [rsl_rl](https://github.com/leggedrobotics/rsl_rl) (version [2.2.0](https://github.com/leggedrobotics/rsl_rl/releases/tag/v2.2.0)).
+# Unsupervised Skill Discovery (USD)
 
+This directory contains **unsupervised skill discovery algorithms** built on top of
+[rsl_rl](https://github.com/leggedrobotics/rsl_rl) (version [2.2.0](https://github.com/leggedrobotics/rsl_rl/releases/tag/v2.2.0)).
 
-This framework is compatible with any USD algorithm that 
-- Provides a Reward function given a transition tuple
-- Can be trained with on-policy data
+The framework supports any USD algorithm that:
 
-Currently, DIAYN and METRA are implemented in `rsl_rl/intrinsic_motivation/diayn.py` and `rsl_rl/intrinsic_motivation/metra.py`.
-Additional algorithms can be implemented by subclassing from `BaseSkillDiscovery` in `rsl_rl/intrinsic_motivation/base_skill_discovery.py`.
-The algorithms are combined in the `FACTOR_USD` class in `/rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py`.
+* Provides a **reward function** for a transition tuple
+* Can be **trained with on-policy** data
 
-For this algorithm to work, the environment additionally needs to provide the attributes:
+Currently implemented algorithms:
+
+* **DIAYN** — `rsl_rl/intrinsic_motivation/diayn.py`
+* **METRA** — `rsl_rl/intrinsic_motivation/metra.py`
+
+New algorithms can be added by subclassing `BaseSkillDiscovery` located at:
+`rsl_rl/intrinsic_motivation/base_skill_discovery.py`
+
+Multiple algorithms are managed by the `FACTOR_USD` class:
+`rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py`
+
+---
+
+## Environment Requirements
+
+To enable factorized USD, the environment must define the following attributes:
+
 ```python
 factors: dict[str, tuple[list[str], Literal["metra", "diayn"]]]
-skill_dims: dict[str, int] 
-resampling_intervals: dict[str, int] 
+skill_dims: dict[str, int]
+resampling_intervals: dict[str, int]
 usd_alg_extra_cfg: dict[str, dict]
 ```
 
-The algorithm configuration needs an additional field `usd` (as in unsupervised skill discovery, not to be confused with universal scene description) of type `RslRlFactorizedUSDAlgorithmCfg` defined in
-`IsaacLab/source/extensions/omni.isaac.lab_tasks/omni/isaac/lab_tasks/utils/wrappers/rsl_rl/rl_cfg.py`
+Additionally, the algorithm configuration must contain a `usd` field of type
+`RslRlFactorizedUSDAlgorithmCfg`, located in:
 
+```
+IsaacLab/source/extensions/omni.isaac.lab_tasks/
+    omni/isaac/lab_tasks/utils/wrappers/rsl_rl/rl_cfg.py
+```
 
-### How to add new USD algorithm
-1. Implement the algorithm by subclassing from `BaseSkillDiscovery`.
-2. Add a configuration class for this algorithm in 
-`IsaacLab/source/extensions/omni.isaac.lab_tasks/omni/isaac/lab_tasks/utils/wrappers/rsl_rl/rl_cfg.py`
-and include it as a field in `RslRlFactorizedUSDAlgorithmCfg`
-3. Update the `FACTOR_USD` class to also handle your new algorithm
-4. In the environment configuration, update the `factors`, `skill_dims`, `resampling_intervals` and `usd_alg_extra_cfg` configs accordingly
+---
 
+## Adding a New USD Algorithm
 
+Follow these steps to integrate a new unsupervised skill discovery algorithm:
+
+### 1. Implement the Algorithm
+
+Create a class that subclasses `BaseSkillDiscovery`.
+
+### 2. Add a Configuration Class
+
+Define and register a configuration class for your algorithm in:
+
+```
+IsaacLab/source/extensions/omni.isaac.lab_tasks/
+    omni/isaac/lab_tasks/utils/wrappers/rsl_rl/rl_cfg.py
+```
+
+Add it to the `RslRlFactorizedUSDAlgorithmCfg` class.
+
+### 3. Update `FACTOR_USD`
+
+Extend the `FACTOR_USD` class so it can initialize and manage your new algorithm.
+
+### 4. Update the Environment Configuration
+
+Modify the following fields to reflect your new algorithm:
+
+* `factors`
+* `skill_dims`
+* `resampling_intervals`
+* `usd_alg_extra_cfg`
+
+---

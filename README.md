@@ -1,57 +1,86 @@
-# Unsupervised Skill Discovery Environments
+# Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors
 
-[![IsaacSim](https://img.shields.io/badge/IsaacSim-5.0.0-silver.svg)](https://docs.omniverse.nvidia.com/isaacsim/latest/overview.html)
-[![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.2.0-silver)](https://isaac-sim.github.io/IsaacLab)
-[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://docs.python.org/3/whatsnew/3.10.html)
-[![Linux platform](https://img.shields.io/badge/platform-linux--64-orange.svg)](https://releases.ubuntu.com/20.04/)
-[![Windows platform](https://img.shields.io/badge/platform-windows--64-orange.svg)](https://www.microsoft.com/en-us/)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
-[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/license/mit)
+<p align="center">
+  <img src="exts/d3_skill_discovery/docs/overview_fig.png" width="100%" alt="Main figure of D3 paper"/>
+</p>
 
-## Overview
+This repository contains the implementation accompanying the CoRL 2025 paper **Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors**. The project page is available at: [https://leggedrobotics.github.io/d3-skill-discovery/](https://leggedrobotics.github.io/d3-skill-discovery/)
 
-This repository contains the code for the [Divide Discover Deploy](https://leggedrobotics.github.io/d3-skill-discovery/) paper.
-It contains environments and algorithms for unsupervised skill discovery.
+---
+
+
+## Repository structure
 
 ```
 d3-skill-discovery/
-├── exts/d3_skill_discovery/   # IsaacLab Environments
-├── scripts/                # Training scripts
-└── rsl_rl/                 # Algorithms
+├── exts/d3_skill_discovery/    # IsaacLab Environments
+├── scripts/                    # Training scripts
+└── rsl_rl/                     # Algorithms
 ```
 
+
+See [exts/d3_skill_discovery/d3_skill_discovery/README.md](exts/d3_skill_discovery/d3_skill_discovery/README.md) for details on the environments.
+See [rsl_rl/README.md](rsl_rl/README.md) for details on the usd algorithm.
+
+---
 
 ## Installation
 
 ### Prerequisites
 
-- Install Isaac Lab, see the [installation guide](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/binaries_installation.html#).
-- Create a new conda environment:
+1. Install Isaac Lab 2.2 following the official [installation guide](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/binaries_installation.html#).
 
-  ```bash
-  ./isaaclab.sh --conda d3_env
-  conda activate d3_env
-  ```
+2. Create a new conda environment:
 
-- Install IsaacLab extensions:
+   ```bash
+   ./isaaclab.sh --conda d3_env
+   conda activate d3_env
+   ```
 
-  ```bash
-  ./isaaclab.sh --install none
-  ```
+3. Install IsaacLab extensions:
 
-### Install this extension
+   ```bash
+   ./isaaclab.sh --install none
+   ```
 
-Navigate to the project directory and run the installation script:
+---
+
+## Install this Extension
+
+Navigate to the project directory and run:
 
 ```bash
 cd d3-skill-discovery
 ./install.sh
 ```
 
+---
+
 ## Training
 
-Train the unsupervised skill discovery model:
+To train an unsupervised skill discovery model:
 
 ```bash
 python scripts/rsl_rl/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 2048 --headless --logger wandb
 ```
+
+---
+
+## Citation
+
+If you use this repository in your research, please cite:
+
+```bibtex
+@inproceedings{cathomen2025d3,
+  author    = {Cathomen, Rafael and Mittal, Mayank and Vlastelica, Marin and Hutter, Marco},
+  title     = {Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2025},
+}
+```
+
+---
+
+## License
+
+This project is released under the [BSD-3-Clause License](LICENSE).

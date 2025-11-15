@@ -5,15 +5,18 @@
 
 set -e  # Exit on any error
 
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Installing d3-skill-discovery packages..."
 
 # Install rsl_rl package
 echo "Installing rsl_rl package..."
-pip install -e ./rsl_rl/
+pip install -e "${SCRIPT_DIR}/rsl_rl/"
 
 # Install d3_skill_discovery package  
 echo "Installing d3_skill_discovery package..."
-pip install -e ./exts/d3_skill_discovery/
+pip install -e "${SCRIPT_DIR}/exts/d3_skill_discovery/"
 
 echo "✅ All packages installed successfully!"
 echo ""
