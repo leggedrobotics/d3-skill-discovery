@@ -36,6 +36,8 @@ extra_standard_library = [
     "toml",
     "trimesh",
     "tqdm",
+    "moviepy",
+    "imageio",
 ]
 known_thirdparty = [
     "isaacsim.core.api",

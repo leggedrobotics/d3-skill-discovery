@@ -7,16 +7,15 @@
 
 from __future__ import annotations
 
+import imageio
 import os
 import statistics
 import time
 import torch
 import zipfile
 from collections import deque
-from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
-
-import imageio
 from moviepy.editor import VideoFileClip, clips_array
+from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
 
 import rsl_rl
 from rsl_rl.algorithms import PPO
