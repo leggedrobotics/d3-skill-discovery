@@ -13,10 +13,7 @@ from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.nets i
 from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils import (
     get_robot_lin_vel_w,
     get_robot_pos,
-    get_robot_quat,
-    get_robot_rot_vel_w,
 )
-from rsl_rl.utils import TIMER_CUMULATIVE
 
 from isaaclab.assets import Articulation, RigidObject
 from isaaclab.managers import SceneEntityCfg
@@ -24,12 +21,9 @@ from isaaclab.managers.manager_base import ManagerTermBase
 from isaaclab.managers.manager_term_cfg import RewardTermCfg
 from isaaclab.sensors import ContactSensor, RayCaster
 from isaaclab.utils.assets import check_file_path, read_file
-from isaaclab.utils.timer import Timer
-from isaaclab.utils.warp import raycast_mesh
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
-# dummy reward functions
 
 
 def dist_from_origin(env: ManagerBasedRLEnv, entity_cfg: SceneEntityCfg) -> torch.Tensor:
@@ -73,32 +67,6 @@ def dist_from_x(env: ManagerBasedRLEnv, entity_cfg: SceneEntityCfg) -> torch.Ten
     y_pos = rel_pos[..., 1]
     log_dist = torch.log(torch.abs(y_pos) + 1)
     return log_dist
-
-
-def dummy_reward(env: ManagerBasedRLEnv, sensor_cfg: SceneEntityCfg, threshold: float) -> torch.Tensor:
-    """Placeholder reward function that returns a dummy reward."""
-    asset_ids = [asset for asset in list(env.scene.rigid_objects.keys()) if "asset" in asset]
-
-    asset_poses = []
-    for asset_id in asset_ids:
-        asset_poses.append(env.scene.rigid_objects[asset_id].data.root_pos_w)
-
-    positions = torch.stack(asset_poses)
-    # positions is expected to be of shape (N, 2)
-    diff = positions.unsqueeze(1) - positions.unsqueeze(0)  # shape (N, N, 2)
-    dist_squared = (diff**2).sum(-1)  # shape (N, N)
-
-    # Convert squared distances to actual distances
-    dist = torch.sqrt(dist_squared)
-
-    # Since dist[i, j] and dist[j, i] are the same, we can sum up one triangle and diagonal, then double it.
-    # We avoid doubling the diagonal since it is always zero.
-    triu_indices = torch.triu_indices(dist.size(0), dist.size(1), offset=1)
-    sum_distances = dist[triu_indices[0], triu_indices[1]].sum(0)
-
-    # TODO calculate a reward from this
-
-    return torch.zeros(env.num_envs).to(env.device)
 
 
 def any_box_close_to_step_reward(
@@ -239,7 +207,6 @@ def closest_box_close_to_step_reward(
 
 
 class BoxMovingReward:
-
     def __init__(self):
         self.prev_box_pos = None
 
@@ -482,7 +449,7 @@ def action_penalty_rigidbody(env: ManagerBasedRLEnv, jump_penalty_factor: float 
 
 
 def high_up(env: ManagerBasedRLEnv, height_range: tuple[float, float]) -> torch.Tensor:
-    """Dense reward increaseing from 0 to 1 if the robot is within the heigh range."""
+    """Dense reward increasing from 0 to 1 if the robot is within the height range."""
     robot_pos = get_robot_pos(env.scene["robot"])
 
     height = torch.clamp(robot_pos[:, 2], height_range[0], height_range[1])
@@ -522,7 +489,7 @@ def base_below_min_height(
     sensor_cfg: SceneEntityCfg = SceneEntityCfg("height_scanner"),
 ) -> torch.Tensor:
     """Penalize asset height from its target using L2 squared kernel.
-    The distance is calcualted by raycasting the terrain mesh.
+    The distance is calculated by raycasting the terrain mesh.
 
     """
 
@@ -602,19 +569,3 @@ class instruction_guidance(ManagerTermBase):
     def __call__(self, env: ManagerBasedRLEnv, obs_name: str) -> torch.Tensor:
         instruct_obs = env.observation_manager.compute_group(group_name=obs_name)
         return self.instruction_net(instruct_obs).squeeze(1)
-
-
-##
-#  Utility functions
-##
-
-
-def get_robot_pos(robot: Articulation | RigidObject) -> torch.Tensor:
-    """Get the position of the robot."""
-    if not isinstance(robot, (Articulation, RigidObject)):
-        raise ValueError(f"Expected robot to be of type Articulation or RigidObject, got {type(robot)}")
-
-    if isinstance(robot, Articulation):
-        return robot.data.body_pos_w[:, -1, :]
-    else:
-        return robot.data.root_pos_w

@@ -7,7 +7,6 @@
 
 from __future__ import annotations
 
-import numpy as np
 import os
 import statistics
 import time
@@ -17,20 +16,15 @@ from collections import deque
 from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
 
 import imageio
+from moviepy.editor import VideoFileClip, clips_array
 
 import rsl_rl
 from rsl_rl.algorithms import PPO
 from rsl_rl.env import VecEnv
 from rsl_rl.intrinsic_motivation import FACTOR_USD
-from rsl_rl.modules import (
-    ActorCritic,
-    EmpiricalNormalization,
-    RelationalActorCriticRecurrent,
-    RelationalActorCriticTransformer,
-)
+from rsl_rl.modules import ActorCritic  # noqa: F401
+from rsl_rl.modules import EmpiricalNormalization, RelationalActorCriticRecurrent, RelationalActorCriticTransformer
 from rsl_rl.utils import store_code_state
-
-# from moviepy.editor import VideoFileClip, clips_array
 
 
 class UsdOnPolicyRunner:
@@ -48,10 +42,8 @@ class UsdOnPolicyRunner:
         self.debug_mode = False
         self.exporting = False
 
-        if "usd" in infos["observations"]:
-            usd_obs = infos["observations"]["usd"]
-        else:
-            usd_obs = obs
+        usd_obs = infos["observations"].get("usd", obs)
+
         if isinstance(obs, torch.Tensor):
             # flattened observation
             num_obs = obs.shape[1]
@@ -81,17 +73,13 @@ class UsdOnPolicyRunner:
             )
 
             skill_dict = {"skill": torch.zeros(self.env.num_envs, full_skill_dim, device=self.device)}
-            actor_critic: (
-                RelationalActorCriticTransformer | RelationalActorCriticRecurrent | GoalConditionedPPOActorCritic
-            ) = actor_critic_class(
+            actor_critic: RelationalActorCriticTransformer | RelationalActorCriticRecurrent = actor_critic_class(
                 actor_obs_dict=obs | skill_dict,
                 critic_obs_dict=obs | skill_dict,
                 num_actions=self.env.num_actions,
                 num_critics=num_separate_rewards,
                 **self.policy_cfg,
-            ).to(
-                self.device
-            )
+            ).to(self.device)
 
             num_obs = num_critic_obs = False
             critic_obs = [None]  # TODO critic from dict
@@ -213,10 +201,7 @@ class UsdOnPolicyRunner:
         else:
             critic_obs = obs
 
-        if "usd" in infos["observations"]:
-            usd_obs = infos["observations"]["usd"]
-        else:
-            usd_obs = obs
+        usd_obs = infos["observations"].get("usd", obs)
 
         ep_infos = []
         rewbuffer = deque(maxlen=100)
@@ -288,11 +273,7 @@ class UsdOnPolicyRunner:
                         critic_obs = obs
 
                     # usd observations
-                    if "usd" in infos["observations"]:
-                        usd_obs = infos["observations"]["usd"]
-                    else:
-                        usd_obs = obs
-                    #
+                    usd_obs = infos["observations"].get("usd", obs)
 
                     if self.log_dir is not None:
                         # Book keeping

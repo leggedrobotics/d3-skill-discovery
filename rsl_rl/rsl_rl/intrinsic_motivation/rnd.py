@@ -13,11 +13,8 @@ import torch
 import torch.nn as nn
 from collections import deque
 
-from rsl_rl.modules.normalizer import (
-    EmpiricalDiscountedVariationNormalization,
-    EmpiricalNormalization,
-    ExponentialMovingAverageNormalizer,
-)
+from rsl_rl.modules.normalizer import EmpiricalDiscountedVariationNormalization  # noqa: F401
+from rsl_rl.modules.normalizer import EmpiricalNormalization, ExponentialMovingAverageNormalizer
 from rsl_rl.utils import extract_batch_shape, flatten_batch, unflatten_batch
 
 
@@ -242,7 +239,6 @@ class RandomNetworkDistillation(nn.Module):
             param.data = torch.clamp(param.data, -self.max_param_norm, self.max_param_norm)
 
     def get_metrics(self):
-
         metrics = {
             "intrinsic_reward": torch.mean(torch.tensor(self.log_reward_mean)).item(),
             "intrinsic_reward_std": torch.mean(torch.tensor(self.log_reward_std)).item(),

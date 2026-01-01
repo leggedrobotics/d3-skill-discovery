@@ -56,6 +56,15 @@ class VecEnv(ABC):
     """Device to use."""
 
     """
+    Other properties.
+    """
+
+    @property
+    def unwrapped(self):
+        """Return the unwrapped environment."""
+        return self
+
+    """
     Operations.
     """
 

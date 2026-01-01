@@ -2,16 +2,10 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 from dataclasses import MISSING
 
-import isaaclab.terrains as terrain_gen
 from isaaclab.terrains.height_field.hf_terrains_cfg import HfTerrainBaseCfg
-from isaaclab.terrains.terrain_generator_cfg import SubTerrainBaseCfg
 from isaaclab.utils import configclass
 
 from . import hf_terrains

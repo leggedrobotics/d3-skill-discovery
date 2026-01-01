@@ -9,9 +9,6 @@ from typing import TYPE_CHECKING
 
 from isaaclab.envs import ManagerBasedRLEnv
 from isaaclab.managers.action_manager import ActionTerm
-from isaaclab.markers import VisualizationMarkers
-from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG, GREEN_ARROW_X_MARKER_CFG
-from isaaclab.utils import math as math_utils
 from isaaclab.utils.assets import check_file_path, read_file
 
 if TYPE_CHECKING:
@@ -20,11 +17,10 @@ if TYPE_CHECKING:
 
 TELEOP = False
 if TELEOP:
-    from isaaclab.devices import Se3Gamepad, Se3Keyboard, Se3SpaceMouse
+    from isaaclab.devices import Se3Keyboard
 
 
 class SkillSelectionAction(ActionTerm):
-
     cfg: SkillSelectionActionCfg
     _env: ManagerBasedRLEnv
 

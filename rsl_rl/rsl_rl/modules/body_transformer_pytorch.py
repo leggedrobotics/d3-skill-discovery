@@ -4,12 +4,7 @@
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from typing import Dict, List, Literal, Tuple, Union
-
-from rsl_rl.utils import TIMER_CUMULATIVE
-
-from .transformer import TransformerLayer
+from typing import Literal
 
 #############################################################################
 # Optional small embedding MLP
@@ -69,8 +64,8 @@ class BodyTransformer(nn.Module):
     def __init__(
         self,
         # The "mapping-based" inputs
-        obs_dict: Dict[str, torch.Tensor],
-        obs_node_dict: Dict[str, Union[List[int], Tuple[List[int], torch.Tensor]]],
+        obs_dict: dict[str, torch.Tensor],
+        obs_node_dict: dict[str, list[int] | tuple[list[int], torch.Tensor]],
         adjacency_mat: torch.Tensor,  # shape [num_nodes, num_nodes], in {0,1}
         # Transformer config
         num_layers: int,
@@ -167,7 +162,7 @@ class BodyTransformer(nn.Module):
             # e.g. alternate masked/unmasked
             self.mask_usage = [(i % 2 == 0) for i in range(num_layers)]
 
-        # 7) obs that are not splitted across nodes
+        # 7) obs that are not split across nodes
         self.obs_node_dict_list = {}
         for obs_key, entry in obs_node_dict.items():
             if isinstance(entry, list):
@@ -186,7 +181,7 @@ class BodyTransformer(nn.Module):
         self.num_layers = num_layers
         self.encoder_layers = nn.ModuleList([encoder_layer for _ in range(num_layers)])
 
-    def forward_dict(self, obs_dict: Dict[str, torch.Tensor]) -> torch.Tensor:
+    def forward_dict(self, obs_dict: dict[str, torch.Tensor]) -> torch.Tensor:
         # print(f"Memory before forward: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
 
         batch_size = next(iter(obs_dict.values())).size(0)
@@ -257,7 +252,7 @@ class ActionDetokenizer(nn.Module):
     def __init__(
         self,
         embedding_dim: int,
-        node_to_joint: List[int],
+        node_to_joint: list[int],
         dim_per_out_node: int,
     ):
         super().__init__()
@@ -302,7 +297,7 @@ class ValueDetokenizer(nn.Module):
     def __init__(
         self,
         embedding_dim: int,
-        node_to_value: List[int],  # e.g. which nodes produce a value? or all
+        node_to_value: list[int],  # e.g. which nodes produce a value? or all
         average_values: bool = True,
     ):
         """

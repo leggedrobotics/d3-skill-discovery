@@ -136,8 +136,8 @@ def main():
         raw_obs_shape += tensor.flatten(1).shape[-1]
     skill_dim = input_shape - raw_obs_shape
     skills = torch.eye(skill_dim, device=env.unwrapped.device)
-    repeates = int(env.num_envs // skill_dim) + 1
-    skill_tensor = skills.repeat(repeates, 1)[: env.num_envs]
+    repeats = int(env.num_envs // skill_dim) + 1
+    skill_tensor = skills.repeat(repeats, 1)[: env.num_envs]
     skill_dict = {"skill": skill_tensor}
     # load weights
     metra_obs |= skill_dict

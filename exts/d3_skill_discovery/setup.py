@@ -15,7 +15,7 @@ def get_version():
     here = os.path.abspath(os.path.dirname(__file__))
     version_file = os.path.join(here, "d3_skill_discovery", "__init__.py")
 
-    with open(version_file, "r") as f:
+    with open(version_file) as f:
         for line in f:
             if line.startswith("__version__"):
                 return line.split("=")[1].strip().strip('"').strip("'")
@@ -32,20 +32,19 @@ setup(
     name="d3_skill_discovery",
     packages=find_packages(),
     author="Legged Robotics Lab",
-    maintainer="Rafael Cabrera",
+    maintainer="Rafael Cathomen",
     url="https://github.com/leggedrobotics/d3_skill_discovery",
     version=get_version(),
     description="Unsupervised skill discovery environments for Isaac Lab",
     keywords=["robotics", "rl", "isaac", "simulation"],
     install_requires=INSTALL_REQUIRES,
-    license="MIT",
+    license="BSD-3-Clause",
     include_package_data=True,
     python_requires=">=3.10",
     classifiers=[
         "Natural Language :: English",
         "Programming Language :: Python :: 3.10",
-        "Isaac Sim :: 2023.1.1",
-        "Isaac Sim :: 4.0.0",
+        "Isaac Sim :: 4.5.0",
     ],
     zip_safe=False,
 )

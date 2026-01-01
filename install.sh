@@ -14,7 +14,7 @@ echo "Installing d3-skill-discovery packages..."
 echo "Installing rsl_rl package..."
 pip install -e "${SCRIPT_DIR}/rsl_rl/"
 
-# Install d3_skill_discovery package  
+# Install d3_skill_discovery package
 echo "Installing d3_skill_discovery package..."
 pip install -e "${SCRIPT_DIR}/exts/d3_skill_discovery/"
 

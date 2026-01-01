@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 from isaaclab.utils import configclass
+from isaaclab_tasks.utils.wrappers.rsl_rl import RslRlPpoActorCriticCfg  # noqa: F401
 from isaaclab_tasks.utils.wrappers.rsl_rl import (
     RslRlOnPolicyRunnerCfg,
-    RslRlPpoActorCriticCfg,
     RslRlPpoAlgorithmCfg,
     RslRlPpoRelationalActorCriticCfg,
 )

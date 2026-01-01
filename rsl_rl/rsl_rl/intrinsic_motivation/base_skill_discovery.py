@@ -53,9 +53,9 @@ class BaseSkillDiscovery(ABC):
     ##
 
     @property
-    def curriculum_metric(self) -> torch.Tensor:
+    def curriculum_metric(self) -> torch.Tensor | None:
         """Optional method to return a metric for the curriculum."""
-        return None  # type: ignore
+        pass
 
     @property
     @abstractmethod

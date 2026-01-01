@@ -2,14 +2,9 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 from dataclasses import MISSING
 
-from isaaclab.controllers import DifferentialIKControllerCfg
 from isaaclab.managers.action_manager import ActionTerm, ActionTermCfg
 from isaaclab.utils import configclass
 

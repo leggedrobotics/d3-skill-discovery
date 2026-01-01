@@ -2,30 +2,21 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 """Functions to generate different terrains using the ``trimesh`` library."""
 
 from __future__ import annotations
 
 import numpy as np
-import scipy.spatial.transform as tf
-import torch
+import random
 import trimesh
 from typing import TYPE_CHECKING
 
 from isaaclab.terrains.trimesh.utils import *  # noqa: F401, F403
-from isaaclab.terrains.trimesh.utils import make_border, make_plane
+from isaaclab.terrains.trimesh.utils import make_border
 
 if TYPE_CHECKING:
     from . import mesh_terrains_cfg
-
-import numpy as np
-import random
-import trimesh
 
 
 def pyramid_terrain(
@@ -258,7 +249,6 @@ def four_walls_terrain(
     floor_box = trimesh.creation.box(floor_dim, trimesh.transformations.translation_matrix(floor_pos))
     meshes_list.append(floor_box)
 
-    half_wall_len = 0.5 * cfg.wall_length
     half_wall_thk = 0.5 * cfg.wall_thickness
     half_terr = 0.5 * terrain_size
     half_wall_ht = 0.5 * cfg.wall_height

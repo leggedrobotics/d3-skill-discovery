@@ -1,7 +1,7 @@
 # Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors
 
 <p align="center">
-  <img src="exts/d3_skill_discovery/docs/overview_fig.png" width="100%" alt="Main figure of D3 paper"/>
+  <img src="docs/overview_fig.png" width="100%" alt="Main figure of D3 paper"/>
 </p>
 
 This repository contains the implementation accompanying the CoRL 2025 paper **Divide, Discover, Deploy: Factorized Skill Learning with Symmetry and Style Priors**. The project page is available at: [https://leggedrobotics.github.io/d3-skill-discovery/](https://leggedrobotics.github.io/d3-skill-discovery/)
@@ -61,7 +61,7 @@ cd d3-skill-discovery
 To train an unsupervised skill discovery model:
 
 ```bash
-python scripts/rsl_rl/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 2048 --headless --logger wandb
+python scripts/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 2048 --headless --logger wandb
 ```
 
 ---

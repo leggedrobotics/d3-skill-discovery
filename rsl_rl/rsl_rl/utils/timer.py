@@ -5,7 +5,7 @@
 import functools
 import time
 import torch
-from typing import Callable
+from collections.abc import Callable
 
 
 class TimerCumulative:

@@ -154,7 +154,6 @@ class RolloutStorage:
 
         # initialize if needed
         if self.saved_hidden_states_a is None or self.saved_hidden_states_c is None:
-
             num_steps_per_env = (
                 self.observations.shape[0]
                 if isinstance(self.observations, torch.Tensor)
@@ -294,7 +293,6 @@ class RolloutStorage:
 
     # for RNNs only
     def reccurent_mini_batch_generator(self, num_mini_batches, num_epochs=8):
-
         raise NotImplementedError("The function reccurent_mini_batch_generator is not yet adapted for skill discovery")
 
         if isinstance(self.observations, dict):

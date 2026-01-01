@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-import numpy as np
 import torch
 from typing import Literal
 
@@ -13,17 +12,15 @@ from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils 
     get_robot_quat,
     get_robot_rot_vel_w,
 )
-from rsl_rl.utils import TIMER_CUMULATIVE
 
 import isaaclab.sim as sim_utils
-from isaaclab.assets import Articulation, AssetBaseCfg, RigidObject
+from isaaclab.assets import Articulation, RigidObject
 from isaaclab.envs import ManagerBasedEnv, ManagerBasedRLEnv
 from isaaclab.managers import ObservationTermCfg, RewardTermCfg, SceneEntityCfg
 from isaaclab.managers.manager_base import ManagerTermBase
 from isaaclab.markers import VisualizationMarkers, VisualizationMarkersCfg
-from isaaclab.sensors import CameraCfg, ContactSensorCfg, RayCaster, RayCasterCfg, SensorBase, TiledCamera, patterns
+from isaaclab.sensors import RayCaster, SensorBase, TiledCamera
 from isaaclab.utils import math as math_utils
-from isaaclab.utils.timer import Timer
 from isaaclab.utils.warp import raycast_mesh
 
 from .obs_utils import compute_asset_aabb
@@ -364,7 +361,6 @@ class origin_spawn(ManagerTermBase):
         heading_only: bool = False,
         reset_every_n_steps: int = -1,
     ) -> torch.Tensor:
-
         robot: Articulation | RigidObject = env.scene[asset_cfg.name]
         spawn_asset: Articulation | RigidObject = env.scene[spawn_asset_cfg.name]
 
@@ -444,7 +440,6 @@ class origin_spawn_quadrant(ManagerTermBase):
         spawn_asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
         reset_every_n_steps: int = -1,
     ) -> torch.Tensor:
-
         robot: Articulation | RigidObject = env.scene[asset_cfg.name]
         spawn_asset: Articulation | RigidObject = env.scene[spawn_asset_cfg.name]
 
@@ -954,10 +949,10 @@ def last_low_level_action(env: ManagerBasedEnv, action_name: str | None = None) 
 def dist_to_goal(env: ManagerBasedRLEnv, entity_cfg: SceneEntityCfg, command_name: str) -> torch.Tensor:
     """Returns the distance to the goal for the given entity."""
     entity: RigidObject | Articulation = env.scene[entity_cfg.name]
-    goal_cmd_geneator: GoalCommand = env.command_manager._terms[command_name]  # type: ignore
+    goal_cmd_generator: GoalCommand = env.command_manager._terms[command_name]  # type: ignore
 
     entity_pos = get_robot_pos(entity)
-    goal_pos = goal_cmd_geneator.goal_pos_w
+    goal_pos = goal_cmd_generator.goal_pos_w
 
     diff = torch.linalg.norm(entity_pos - goal_pos, dim=-1).unsqueeze(1)
     return diff
@@ -975,7 +970,6 @@ class video_recorder(ManagerTermBase):
     """
 
     def __init__(self, cfg: ObservationTermCfg, env: ManagerBasedRLEnv):
-
         super().__init__(cfg, env)
         self.video_intervall = 12500
 
@@ -1044,7 +1038,7 @@ class video_recorder(ManagerTermBase):
             for env_id, cam_id in zip(cam_env_ids.cpu().numpy(), cam_ids.cpu().numpy()):  # type: ignore
                 self.video_dict[env_id] = None
                 # start recording if env was reset
-                if env_id in start_env_ids and self.num_frames_dict[env_id] == 0:
+                if env_id in start_env_ids and self.num_frames_dict[env_id] == 0:  # noqa: SIM114
                     self.video_dict[env_id] = env_frames[cam_id]
                     self.num_frames_dict[env_id] += 1
                 # if we started before, keep recording until the video length is reached

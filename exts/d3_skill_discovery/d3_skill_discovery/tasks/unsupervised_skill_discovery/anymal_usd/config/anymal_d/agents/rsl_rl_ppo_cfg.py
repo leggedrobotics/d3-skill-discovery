@@ -11,7 +11,7 @@ from isaaclab_tasks.utils.wrappers.rsl_rl import (
 )
 
 
-## Old code
+# Old code
 @configclass
 class AnymalDRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24

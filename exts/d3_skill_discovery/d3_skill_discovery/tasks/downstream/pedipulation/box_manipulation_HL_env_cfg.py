@@ -15,7 +15,6 @@ from d3_skill_discovery.tasks.downstream.pedipulation.box_manipulation_base_env_
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
 from isaaclab.managers import SceneEntityCfg
-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.utils import configclass
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 

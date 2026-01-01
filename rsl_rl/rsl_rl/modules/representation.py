@@ -57,7 +57,6 @@ class StateMLP(nn.Module):
         state = flatten_batch(state, self.state_dim)
 
         if isinstance(state, dict):
-
             state = torch.cat([tensor.flatten(1) for _, tensor in state.items()], dim=-1)
         latent = self.mlp(state)
 

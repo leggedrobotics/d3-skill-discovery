@@ -126,7 +126,6 @@ class RolloutStorageOG:
 
         # initialize if needed
         if self.saved_hidden_states_a is None or self.saved_hidden_states_c is None:
-
             num_steps_per_env = (
                 self.observations.shape[0]
                 if isinstance(self.observations, torch.Tensor)
@@ -189,7 +188,6 @@ class RolloutStorageOG:
             else:
                 critic_observations = observations
         else:
-
             observations = self.observations.flatten(0, 1)
             if self.privileged_observations is not None:
                 critic_observations = self.privileged_observations.flatten(0, 1)

@@ -18,7 +18,7 @@ from d3_skill_discovery.tasks.downstream.pedipulation.foot_and_base_tracking_bas
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
 from isaaclab.managers import SceneEntityCfg
-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
+from isaaclab.sensors import RayCasterCfg, patterns
 from isaaclab.utils import configclass
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 
@@ -38,10 +38,9 @@ ISAAC_GYM_JOINT_NAMES = [
 ]
 
 
-# only required for Nikitas low-level policy
+# only required for Nikita's low-level policy
 @configclass
 class HLSceneCfg(BaseSceneCfg):
-
     height_scan_low_level = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/base",
         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),

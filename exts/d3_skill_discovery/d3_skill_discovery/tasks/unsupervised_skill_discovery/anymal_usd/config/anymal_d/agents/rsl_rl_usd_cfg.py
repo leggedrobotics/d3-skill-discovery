@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
+from d3_skill_discovery.rsl_rl.rl_cfg import RslRlMetraAlgorithmCfg  # noqa: F401
+from d3_skill_discovery.rsl_rl.rl_cfg import RslRlPpoRecurrentActorCriticCfg  # noqa: F401
 from d3_skill_discovery.rsl_rl.rl_cfg import (
     DiaynCfg,
     MetraCfg,
     RandomNetworkDistillationCfg,
     RslRlFactorizedUSDAlgorithmCfg,
-    RslRlMetraAlgorithmCfg,
     RslRlPpoAlgorithmCfg,
-    RslRlPpoRecurrentActorCriticCfg,
     RslRlPpoRelationalActorCriticCfg,
     UsdModelCfg,
 )

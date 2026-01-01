@@ -12,8 +12,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from rsl_rl.utils.timer import TIMER_CUMULATIVE
-
 
 class MaskedMultiHeadAttention(nn.Module):
     """
@@ -166,7 +164,7 @@ class PoolingModule(nn.Module):
     """This module implements different pooling methods to ensure permutation invariance (Transformer is permutation equivariant)."""
 
     def __init__(self, embedding_dim, num_heads, pooling_type="mean", num_seeds=1):
-        super(PoolingModule, self).__init__()
+        super().__init__()
         self.pooling_type = pooling_type.lower()
         self.embedding_dim = embedding_dim
         self.num_heads = num_heads

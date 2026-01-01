@@ -12,14 +12,14 @@ import torch.nn as nn
 from torch.distributions import Normal
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
-from rsl_rl.modules.actor_critic import ActorCritic, get_activation
+from rsl_rl.modules.actor_critic import get_activation
 from rsl_rl.utils import unpad_trajectories
+
+from .transformer import PoolingModule, TransformerLayer
 
 ##
 # - Transformer
 ##
-
-from .transformer import TransformerLayer, PoolingModule
 
 
 class RelationalTransformer(nn.Module):
@@ -277,7 +277,6 @@ class MLP_rec(nn.Module):
         self.num_input_dims = len(obs_dict[self.first_key].shape[1:])
 
     def forward(self, obs_dict):
-
         batch_dim = len(obs_dict[self.first_key].shape) - self.num_input_dims
 
         x = torch.cat([tensor.flatten(batch_dim) for _, tensor in obs_dict.items()], dim=-1)
@@ -446,4 +445,4 @@ class Memory(torch.nn.Module):
     def reset(self, dones=None):
         # When the RNN is an LSTM, self.hidden_states_a is a list with hidden_state and cell_state
         for hidden_state in self.hidden_states:
-            hidden_state[..., dones, :] = 0.0
+            hidden_state[..., dones == 1, :] = 0.0

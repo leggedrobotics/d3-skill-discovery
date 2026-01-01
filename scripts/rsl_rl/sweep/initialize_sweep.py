@@ -11,7 +11,7 @@ import wandb
 
 
 def load_sweep_config(file_path) -> dict:
-    with open(file_path, "r") as file:
+    with open(file_path) as file:
         return yaml.safe_load(file)  # type: ignore
 
 
@@ -42,7 +42,7 @@ def main():
 
     # Load existing sweep IDs if the file exists
     if os.path.exists(out_path):
-        with open(out_path, "r") as f:
+        with open(out_path) as f:
             sweep_ids = json.load(f)
     else:
         sweep_ids = {}

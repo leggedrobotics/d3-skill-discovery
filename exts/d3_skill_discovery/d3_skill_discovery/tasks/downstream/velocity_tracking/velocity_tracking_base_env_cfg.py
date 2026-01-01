@@ -5,8 +5,6 @@
 from __future__ import annotations
 
 import math
-from dataclasses import MISSING
-from typing import Literal
 
 import d3_skill_discovery.tasks.downstream.goal_tracking.mdp as mdp
 import d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp as usd_mdp
@@ -14,7 +12,7 @@ import d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp as u
 import isaaclab.sim as sim_utils
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
-from isaaclab.managers import CurriculumTermCfg as CurrTerm
+from isaaclab.managers import CurriculumTermCfg as CurrTerm  # noqa: F401
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
@@ -30,7 +28,7 @@ from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 ##
 # Pre-defined configs
 ##
-from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip
+from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip  # noqa: F401
 from isaaclab_assets.robots.anymal import ANYMAL_D_CFG  # isort: skip
 
 

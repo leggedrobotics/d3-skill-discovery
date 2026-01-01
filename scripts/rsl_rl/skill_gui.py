@@ -8,14 +8,14 @@ from __future__ import annotations
 
 import threading
 import torch
-from typing import Dict, List, Literal, Tuple
+from typing import Literal
 
 import dearpygui.dearpygui as dpg
 
 SkillType = Literal["diayn", "metra"]
 
 
-def _default_values(dim: int, kind: SkillType) -> List[float]:
+def _default_values(dim: int, kind: SkillType) -> list[float]:
     if kind == "diayn":
         return [1.0 / dim] * dim
     return [0.0] * dim  # metra
@@ -25,11 +25,11 @@ class SkillControlGUI:
     """GUI to control skill factors.
     For this GUI to work, the skill setup in the environment must be set up"""
 
-    def __init__(self, gui_setup: Dict[str, Tuple[int, SkillType]]):
+    def __init__(self, gui_setup: dict[str, tuple[int, SkillType]]):
         if not gui_setup:
             raise ValueError("gui_setup cannot be empty")
 
-        self.blocks: List[dict] = []
+        self.blocks: list[dict] = []
         value_size = 0
         for name, (dim, kind) in gui_setup.items():
             blk = dict(
@@ -95,7 +95,7 @@ class SkillControlGUI:
         self._updating_weights = False
 
     def _rebuild_skill(self):
-        offset = 0
+        offset = 0  # noqa: SIM113
         for blk in self.blocks:
             self._assert_dims(blk)
             dim = blk["dim"]

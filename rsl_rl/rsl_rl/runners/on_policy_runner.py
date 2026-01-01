@@ -15,7 +15,7 @@ from collections import deque
 from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
 
 import rsl_rl
-from rsl_rl.algorithms import PPO, PPO_OG
+from rsl_rl.algorithms import PPO, PPO_OG  # noqa: F401
 from rsl_rl.env import VecEnv
 from rsl_rl.modules import (
     ActorCritic,
@@ -50,13 +50,9 @@ class OnPolicyRunner:
             ).to(self.device)
         else:
             # dictionary observation
-            actor_critic: (
-                RelationalActorCriticTransformer | RelationalActorCriticRecurrent | GoalConditionedPPOActorCritic
-            ) = actor_critic_class(
+            actor_critic: RelationalActorCriticTransformer | RelationalActorCriticRecurrent = actor_critic_class(
                 actor_obs_dict=obs, critic_obs_dict=obs, num_actions=self.env.num_actions, **self.policy_cfg
-            ).to(
-                self.device
-            )
+            ).to(self.device)
             num_obs = num_critic_obs = False
             critic_obs = [None]  # TODO critic from dict
 

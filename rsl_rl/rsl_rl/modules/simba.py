@@ -83,7 +83,8 @@ class SimBa(nn.Module):
         for i in range(len(hidden_layers) - 1):
             if hidden_layers[i] != hidden_layers[i + 1]:
                 raise ValueError(
-                    f"All hidden_layers must match for a residual block, but got {hidden_layers[i]} -> {hidden_layers[i + 1]}."
+                    f"All hidden_layers must match for a residual block, but got {hidden_layers[i]} ->"
+                    f" {hidden_layers[i + 1]}."
                 )
             self.blocks.append(ResidualFeedForwardBlock(hidden_layers[i], expansion=expansion, activation=activation))
 

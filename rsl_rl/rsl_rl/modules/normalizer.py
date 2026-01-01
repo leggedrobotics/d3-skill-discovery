@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import torch
 from torch import nn
-from typing import Mapping
 
 
 class EmpiricalNormalization(nn.Module):
@@ -152,7 +151,7 @@ class ExponentialMovingAverageNormalizer:
         device: str,
         eps: float = 1e-5,
         train_mode: bool = True,
-        unitl: int | None = None,
+        until: int | None = None,
     ):
         # Decay factor for exponential moving average; must be in [0,1]
         self.decay_factor = decay_factor
@@ -165,7 +164,7 @@ class ExponentialMovingAverageNormalizer:
 
         # Track how many samples we've processed (useful if you want to do any burn-in logic)
         self.count = 0
-        self.until = unitl
+        self.until = until
 
     def train(self, mode: bool):
         self.train_mode = mode
@@ -199,7 +198,6 @@ class ExponentialMovingAverageNormalizer:
             self.train_mode = False
 
     def normalize(self, x: torch.Tensor) -> torch.Tensor:
-
         return torch.clamp((x - self.mean) / (torch.sqrt(self.var) + self.eps), min=-25, max=25)
 
     def __call__(self, x: torch.Tensor) -> torch.Tensor:

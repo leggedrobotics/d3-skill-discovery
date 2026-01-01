@@ -4,14 +4,10 @@
 
 from __future__ import annotations
 
-import copy
-import math
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from collections import defaultdict, deque
-from typing import Generator, Literal
 
 from rsl_rl.modules import EmpiricalNormalization
 

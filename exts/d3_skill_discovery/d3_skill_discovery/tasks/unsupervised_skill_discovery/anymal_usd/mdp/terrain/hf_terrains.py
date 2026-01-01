@@ -2,10 +2,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 """Functions to generate height fields for different terrains."""
 
@@ -208,7 +204,7 @@ def random_uniform_boxes_terrain(difficulty: float, cfg: hf_terrains_cfg.HfRando
         cfg.downsampled_scale = cfg.horizontal_scale
     elif cfg.downsampled_scale < cfg.horizontal_scale:
         raise ValueError(
-            "Downsampled scale must be >= horizontal_scale. " f"Got: {cfg.downsampled_scale} < {cfg.horizontal_scale}."
+            f"Downsampled scale must be >= horizontal_scale. Got: {cfg.downsampled_scale} < {cfg.horizontal_scale}."
         )
 
     effective_size_x = cfg.size[0]

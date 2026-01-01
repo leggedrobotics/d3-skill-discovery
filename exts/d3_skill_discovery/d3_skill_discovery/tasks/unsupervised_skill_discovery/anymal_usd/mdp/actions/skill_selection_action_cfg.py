@@ -37,7 +37,7 @@ class SkillSelectionActionCfg(ActionTermCfg):
     """Absolute path to the low level skill policy file."""
     skill_policy_file_name: str | None = None
     """Name of the low level skill policy file.
-    Either this or `skill_policy_file_path` must be set. 
+    Either this or `skill_policy_file_path` must be set.
     If skill_policy_file_name is set, the policy should be in ../nets/"""
     skill_policy_freq: float = MISSING
     """Frequency of the low level skill policy."""

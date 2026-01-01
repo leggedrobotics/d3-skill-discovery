@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 import torch
-from typing import TYPE_CHECKING
 
 from d3_skill_discovery.tasks.downstream.pedipulation.mdp.commands import FootBasePositionCommand
 
@@ -14,7 +13,7 @@ from isaaclab.envs import ManagerBasedRLEnv
 from isaaclab.envs.mdp.commands import UniformPose2dCommand
 from isaaclab.managers import CommandManager, SceneEntityCfg
 from isaaclab.sensors import ContactSensor
-from isaaclab.utils.math import quat_from_euler_xyz, quat_rotate_inverse, wrap_to_pi, yaw_quat
+from isaaclab.utils.math import quat_rotate_inverse, wrap_to_pi, yaw_quat
 
 
 def feet_air_time(

@@ -10,9 +10,6 @@ from typing import TYPE_CHECKING
 
 from isaaclab.envs import ManagerBasedRLEnv
 from isaaclab.managers.action_manager import ActionTerm
-from isaaclab.markers import VisualizationMarkers
-from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG, GREEN_ARROW_X_MARKER_CFG
-from isaaclab.utils import math as math_utils
 from isaaclab.utils.assets import check_file_path, read_file
 
 if TYPE_CHECKING:
@@ -22,11 +19,10 @@ from ..nets import NET_PATH
 
 TELEOP = False
 if TELEOP:
-    from isaaclab.devices import Se3Gamepad, Se3Keyboard, Se3SpaceMouse
+    from isaaclab.devices import Se3Keyboard
 
 
 class SkillSelectionAction(ActionTerm):
-
     cfg: SkillSelectionActionCfg
     _env: ManagerBasedRLEnv
 
@@ -177,7 +173,6 @@ class SkillSelectionAction(ActionTerm):
                     raise ValueError(f"Unknown distribution type {distr_type}")
 
             else:
-
                 next_dim_idx = dim_idx + dim
                 processed_action_slice = (slice(None), slice(dim_prcd_idx, next_dim_prcd_idx))
 
@@ -201,7 +196,6 @@ class SkillSelectionAction(ActionTerm):
                         actions[:, dim_idx:next_dim_idx].float()
                     )
                 elif "unit_sphere_positive" in distr_type:
-
                     self._processed_command_actions[processed_action_slice].copy_(
                         torch.nn.functional.normalize(torch.nn.functional.softplus(actions[:, dim_idx:next_dim_idx]))
                     )

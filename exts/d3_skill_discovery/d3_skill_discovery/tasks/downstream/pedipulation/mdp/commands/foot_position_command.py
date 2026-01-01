@@ -6,7 +6,8 @@ from __future__ import annotations
 
 import copy
 import torch
-from typing import TYPE_CHECKING, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 from omni.usd.commands import DeletePrimsCommand
 

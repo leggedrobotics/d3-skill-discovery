@@ -24,7 +24,6 @@ from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.terrains import TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.noise import UniformNoiseCfg as Unoise
-from isaaclab_assets.robots.ant import ANT_CFG
 
 # isort: skip
 

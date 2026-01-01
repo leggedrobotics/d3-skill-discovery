@@ -6,7 +6,8 @@ from __future__ import annotations
 
 import copy
 import torch
-from typing import TYPE_CHECKING, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 from omni.usd.commands import DeletePrimsCommand
 
@@ -15,23 +16,14 @@ from isaaclab.assets import RigidObject
 from isaaclab.assets.articulation import Articulation
 from isaaclab.managers import CommandTerm
 from isaaclab.markers import VisualizationMarkers
-from isaaclab.markers.config import (
-    BLUE_ARROW_X_MARKER_CFG,
-    CUBOID_MARKER_CFG,
-    FRAME_MARKER_CFG,
-    GREEN_ARROW_X_MARKER_CFG,
-)
+from isaaclab.markers.config import CUBOID_MARKER_CFG, GREEN_ARROW_X_MARKER_CFG
 from isaaclab.markers.visualization_markers import VisualizationMarkersCfg
 from isaaclab.utils.math import (
     combine_frame_transforms,
-    quat_apply_yaw,
     quat_from_angle_axis,
     quat_from_euler_xyz,
-    quat_inv,
-    quat_mul,
     quat_rotate,
     quat_rotate_inverse,
-    subtract_frame_transforms,
     wrap_to_pi,
     yaw_quat,
 )
@@ -321,7 +313,6 @@ class FootBasePositionCommand(CommandTerm):
         self.foot_position_command_visualizer.visualize(self.foot_pos_commands_w)
         # visualize the command space
         for i, marker in enumerate(self.command_space_visualizers):
-
             edge_position_w, edge_orientation_w = combine_frame_transforms(
                 asset.data.root_pos_w,
                 yaw_quat(asset.data.root_quat_w),

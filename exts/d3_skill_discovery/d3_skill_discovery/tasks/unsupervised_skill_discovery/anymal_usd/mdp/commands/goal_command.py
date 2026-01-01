@@ -7,22 +7,15 @@ from __future__ import annotations
 import math
 import torch
 from collections.abc import Sequence
-from dataclasses import MISSING
 from typing import TYPE_CHECKING
 
-from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils import (
-    get_robot_lin_vel_w,
-    get_robot_pos,
-    get_robot_quat,
-    get_robot_rot_vel_w,
-)
+from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils import get_robot_pos, get_robot_quat
 
-from isaaclab.assets import Articulation, RigidObject
-from isaaclab.managers import CommandTerm, CommandTermCfg
+from isaaclab.assets import Articulation
+from isaaclab.managers import CommandTerm
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG, CUBOID_MARKER_CFG
-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
-from isaaclab.utils import configclass
+from isaaclab.sensors import patterns
 from isaaclab.utils import math as math_utils
 from isaaclab.utils.warp import raycast_mesh
 
@@ -44,7 +37,6 @@ class GoalCommand(CommandTerm):
     cfg: GoalCommandCfg
 
     def __init__(self, cfg: GoalCommandCfg, env: ManagerBasedRLEnv):
-
         super().__init__(cfg, env)
         self.env = env
         self.cfg = cfg
@@ -308,7 +300,7 @@ class GoalCommand(CommandTerm):
                 ray_hits = raycast_mesh(sub_ray_starts.unsqueeze(0), ray_directions.unsqueeze(0), wp_terrain_mesh.id)[
                     0
                 ].squeeze(0)
-                # get the the highes point on the terrain
+                # get the the highest point on the terrain
                 non_border_ray_hits = ray_hits[ray_hits[..., 2] < terrain.cfg.terrain_generator.border_height - 0.1]
                 top_hits = non_border_ray_hits[non_border_ray_hits[..., 2] > non_border_ray_hits[..., 2].max() - 0.1]
 
@@ -318,7 +310,8 @@ class GoalCommand(CommandTerm):
                     top_hits = top_hits[indices]
                 else:
                     raise ValueError(
-                        f"Not enough top hits found in the terrain for row {row} and col {col}. Found {top_hits.shape[0]} hits. Required {N_points_per_terrain}"
+                        f"Not enough top hits found in the terrain for row {row} and col {col}. Found"
+                        f" {top_hits.shape[0]} hits. Required {N_points_per_terrain}"
                     )
                 highest_positions[row, col] = top_hits
 

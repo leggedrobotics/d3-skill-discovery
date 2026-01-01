@@ -5,19 +5,15 @@
 from __future__ import annotations
 
 import math
-import numpy as np
 import torch
-import torch.nn as nn
 import torch.optim as optim
 from collections import defaultdict, deque
-from typing import Generator, Literal
 
-from rsl_rl.modules import DictFlattener, SimBa, StateRepresentation
-from rsl_rl.utils import TIMER_CUMULATIVE, detach, mean_gradient_norm, to_device
+from rsl_rl.modules import DictFlattener, SimBa, StateRepresentation  # noqa: F401
+from rsl_rl.utils import mean_gradient_norm, to_device
 from rsl_rl.utils.mirroring import remove_symmetry_subspaces
 
 from .base_skill_discovery import BaseSkillDiscovery
-from .max_info import MaxInfo
 
 
 class METRA(BaseSkillDiscovery):
@@ -325,14 +321,14 @@ class METRA(BaseSkillDiscovery):
         #     [skills, skills * 2 / 3, skills * 1 / 3, skills * 0, -skills * 1 / 3, -skills * 2 / 3, -skills], dim=0
         # )
         deterministic_skills = torch.cat([skills, -skills], dim=0)
-        repeates = int(num_envs // deterministic_skills.shape[0]) + 1
+        repeats = int(num_envs // deterministic_skills.shape[0]) + 1
         if self.norm_matching:
-            for i in range(repeates):
+            for i in range(repeats):
                 deterministic_skills = torch.cat(
                     [deterministic_skills, skills / (2 ** (1 + i)), -skills / (2 ** (1 + i))], dim=0
                 )
         else:
-            deterministic_skills = torch.cat([deterministic_skills] * repeates, dim=0)
+            deterministic_skills = torch.cat([deterministic_skills] * repeats, dim=0)
         return deterministic_skills[:num_envs]
 
     def sample_skill(
@@ -453,8 +449,6 @@ class METRA(BaseSkillDiscovery):
             # torch.nn.utils.clip_grad_norm_(log_lagrange_multiplier, self.max_grad_norm)
             lagrange_multiplier_optimizer.step()
 
-        # TIMER_CUMULATIVE.stop("metra_update")
-
         # - update objective weight
         mean_cosine_similarity = torch.tensor(self.logging_cosine_similarity).mean().item()
         if mean_cosine_similarity <= self.objective_switching_range[0]:
@@ -474,8 +468,9 @@ class METRA(BaseSkillDiscovery):
             "Metra/reward_usd_mean": torch.tensor(self.logging_skill_reward).mean().item(),
             "Metra/reward_alignment_mean": torch.tensor(self.logging_alignment_reward).mean().item(),
             "Metra/reward_norm_matching_mean": torch.tensor(self.logging_norm_matching_reward).mean().item(),
-            "Metra/reward_exploration_mean": torch.tensor(self.logging_metra_disagreement_reward).mean().item()
-            * self.lambda_exploration,
+            "Metra/reward_exploration_mean": (
+                torch.tensor(self.logging_metra_disagreement_reward).mean().item() * self.lambda_exploration
+            ),
             "Metra/cosine_similarity_mean": torch.tensor(self.logging_cosine_similarity).mean().item(),
             "Metra/phi_grad_norm": mean_state_repr_grad_norm,
             "Metra/error_mean": torch.tensor(self.logging_error).mean().item(),
@@ -666,14 +661,13 @@ class METRA(BaseSkillDiscovery):
 
             ensemble_fix, ensemble_axs = plt.subplots(2, len(self.state_representations) // 2 + 1, figsize=(18, 6))
             ensemble_fix.suptitle(f"METRA ensemble, factor: {factor_name}")
-            for l in range(2):
+            for idx in range(2):
                 if len(self.state_representations) // 2 + 1 == 1:
-                    ensemble_axs[l] = [ensemble_axs[l]]
-                for c in range(len(self.state_representations) // 2 + 1):
-                    ensemble_axs[l][c].set_aspect("equal")
+                    ensemble_axs[idx] = [ensemble_axs[idx]]
+                for col_idx in range(len(self.state_representations) // 2 + 1):
+                    ensemble_axs[idx][col_idx].set_aspect("equal")
 
             for i, (obs_traj, phi_traj, skill_traj) in enumerate(zip(self.viz_obs, phis, self.viz_skill_full)):
-
                 obs_traj = to_device(obs_traj, self.device)
                 phi_traj = phi_traj.to(self.device)
                 skill_traj = skill_traj.to(self.device)
@@ -765,7 +759,6 @@ class METRA(BaseSkillDiscovery):
                 # phi ensemble
                 projected_ensemble_phis = []
                 for j, individual_phi in enumerate(phis_ensemble):
-
                     phi_to_plot = individual_phi[i]
                     plot_r = j // 2
                     plot_c = j % 2

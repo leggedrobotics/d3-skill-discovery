@@ -8,17 +8,15 @@ import math
 import torch
 from typing import TYPE_CHECKING
 
-TELEOP = False
-
 from isaaclab.envs import ManagerBasedRLEnv
 from isaaclab.managers.action_manager import ActionTerm
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG
 from isaaclab.utils import math as math_utils
-from isaaclab.utils.assets import check_file_path, read_file
 
+TELEOP = False
 if TELEOP:
-    from isaaclab.devices import Se3Gamepad, Se3Keyboard, Se3SpaceMouse
+    from isaaclab.devices import Se3Keyboard
 
 if TYPE_CHECKING:
     from .simple_actions_cfg import JumpActionCfg, SimpleActionCfg, WrenchAction2DCfg
@@ -315,7 +313,6 @@ class SimpleAction(ActionTerm):
             closest_asset = dist < closest_asset_dist
             now_grabbing = potential_asset_grab & ~still_grabbing & self.grabbed_asset_id.eq(-1) & closest_asset
             if now_grabbing.any():
-
                 closest_asset_dist[now_grabbing] = dist[now_grabbing]
 
                 # set the position of the grabbed asset in the body frame of the robot

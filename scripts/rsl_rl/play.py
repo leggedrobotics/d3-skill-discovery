@@ -48,7 +48,7 @@ from skill_gui import SkillControlGUI
 
 # Import extensions to set up environment tasks
 import d3_skill_discovery.tasks  # noqa: F401
-from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
+from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner  # noqa: F401
 
 from isaaclab.utils.dict import print_dict
 from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
@@ -100,7 +100,7 @@ def main():
     ppo_runner.load(resume_path, load_optimizer=False)
 
     # obtain the trained policy for inference
-    policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
+    # policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
 
     # prepare for exporting
     if hasattr(ppo_runner.alg.actor_critic, "prepare_export"):
@@ -128,7 +128,7 @@ def main():
     gui = SkillControlGUI(skill_info)
     threading.Thread(target=gui.launch, daemon=True).start()
 
-    ## - load saved policy:
+    # load saved policy if it exists
     policy_path = os.path.join(export_model_dir, "policy.pt")
     if os.path.exists(policy_path):
         print(f"[INFO] Loading policy from: {policy_path}")
@@ -149,7 +149,7 @@ def main():
         # run everything in inference mode
         with torch.inference_mode():
             # agent stepping
-            actions1 = policy(obs)
+            # actions1 = policy(obs)
             actions2 = policy_loaded(flatten_dict_obs(obs))
             # env stepping
             obs, _, _, _ = env.step(actions2)

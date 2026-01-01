@@ -4,7 +4,8 @@
 
 import numpy as np
 import torch
-from typing import Callable, Literal
+from collections.abc import Callable
+from typing import Literal
 
 # symmetry augmentation for anymal
 # symmetries in body and world frame are used independently
@@ -106,7 +107,7 @@ class augment_anymal_obs:
                 augmented_obs[obs_name] = torch.cat([obs, lr_obs, fb_obs, rot_obs], dim=0)
             elif obs_name == "skill":
                 # skills are augmented in the skill discovery module
-                continue
+                pass
             elif obs_name in (["time_left", "base_height", "is_active"] + ignore_keys):
                 # non-augmented observations are just repeated
                 augmented_obs[obs_name] = obs.repeat(4, 1)
@@ -508,7 +509,6 @@ class remove_symmetry_subspaces_cls:
         self.extract_foot_pos = extract_foot_pos()
 
     def __call__(self, obs: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
-
         cleared_obs = {}
         for key in obs.keys():
             if key in ["joint_pos"]:  # or any other obs ordered by joint_ordering
@@ -526,7 +526,6 @@ class extract_foot_pos:
     """Assumes ordering: LF, LH, RF, RH"""
 
     def __init__(self, leg_id: Literal["LF", "RF", "LH", "RH"] = "RF") -> None:
-
         id_to_idx_map = {
             "LF": 0,
             "RF": 2,
@@ -544,7 +543,6 @@ class extract_leg:
     """Assumes joint ordering of Anymal D"""
 
     def __init__(self, leg_id: Literal["LF", "RF", "LH", "RH"] = "RF") -> None:
-
         id_to_idx_map = {
             "LF": [0, 4, 8],
             "LH": [1, 5, 9],

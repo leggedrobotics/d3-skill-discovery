@@ -11,17 +11,12 @@ from typing import TYPE_CHECKING, Literal
 
 from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.commands import GoalCommand
 
-import isaaclab.sim as sim_utils
 import isaaclab.utils.math as math_utils
-from isaaclab.actuators import ImplicitActuator
-from isaaclab.assets import Articulation, DeformableObject, RigidObject
+from isaaclab.assets import Articulation, RigidObject
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers.manager_base import ManagerTermBase
 from isaaclab.managers.manager_term_cfg import EventTermCfg
-from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
-from isaaclab.terrains import FlatPatchSamplingCfg, TerrainImporter
-from isaaclab.terrains.utils import find_flat_patches
-from isaaclab.utils.warp import convert_to_warp_mesh, raycast_mesh
+from isaaclab.terrains import TerrainImporter
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedEnv, ManagerBasedRLEnv
@@ -32,17 +27,18 @@ def reset_multiple_instances_decorator(reset_func: callable) -> callable:
 
     @functools.wraps(reset_func)
     def wrapper(*args, **kwargs):
-        asset_configs = kwargs.get("asset_configs", None)
-        asset_config = kwargs.get("asset_cfg", None)
+        asset_configs = kwargs.get("asset_configs")
+        asset_config = kwargs.get("asset_cfg")
         if asset_configs is None and asset_config is None:
             asset_config = SceneEntityCfg("robot")
         if asset_configs is not None and asset_config is not None:
             raise ValueError(
-                "The decorator 'reset_multiple_instances_decorator' requires either 'asset_cfg' or 'asset_configs' to be provided, not both."
+                "The decorator 'reset_multiple_instances_decorator' requires either 'asset_cfg' or 'asset_configs' to"
+                " be provided, not both."
             )
         if asset_configs is None and asset_config is not None:
             asset_configs = [asset_config]
-        for i, asset_cfg in enumerate(asset_configs):
+        for i, asset_cfg in enumerate(asset_configs):  # type: ignore
             kwargs["asset_cfg"] = asset_cfg
             kwargs["reset_id"] = i
             reset_func(*args, **kwargs)
@@ -77,7 +73,6 @@ def reset_root_state_uniform_on_terrain_aware(
 
     # check if the asset should be removed from the scene
     spawn_lowest_terrain = reset_id < env.cfg.data_container.num_obstacles
-    all_reset_env_ids = env_ids
 
     if reset_used_patches_ids:
         # reset the used patches ids, should be done only once per reset

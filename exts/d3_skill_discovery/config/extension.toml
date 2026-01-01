@@ -15,10 +15,9 @@ repository = "https://github.com/isaac-sim/IsaacLabExtensionTemplate.git"
 keywords = ["extension", "template", "isaaclab"]
 
 [dependencies]
-"omni.isaac.lab" = {}
-"omni.isaac.lab_assets" = {}
-"omni.isaac.lab_tasks" = {}
-# NOTE: Add additional dependencies here
+"isaaclab" = {}
+"isaaclab_assets" = {}
+"isaaclab_tasks" = {}
 
 [[python.module]]
 name = "d3_skill_discovery"

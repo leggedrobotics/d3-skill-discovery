@@ -2,15 +2,11 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 """Configuration for custom terrains."""
 
 import isaaclab.terrains as terrain_gen
-from isaaclab.terrains import FlatPatchSamplingCfg, TerrainGenerator, TerrainGeneratorCfg
+from isaaclab.terrains import FlatPatchSamplingCfg, TerrainGeneratorCfg
 
 from .hf_terrains_cfg import (
     CellBorderCfg,

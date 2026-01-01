@@ -2,14 +2,10 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 """Common functions that can be used to activate certain terminations.
 
-The functions can be passed to the :class:`omni.isaac.lab.managers.TerminationTermCfg` object to enable
+The functions can be passed to the :class:`isaaclab.managers.TerminationTermCfg` object to enable
 the termination introduced by the function.
 """
 
@@ -19,16 +15,10 @@ import torch
 from typing import TYPE_CHECKING
 
 from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.commands import GoalCommand
-from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils import (
-    get_robot_lin_vel_w,
-    get_robot_pos,
-    get_robot_quat,
-    get_robot_rot_vel_w,
-)
+from d3_skill_discovery.tasks.unsupervised_skill_discovery.anymal_usd.mdp.utils import get_robot_pos
 
 from isaaclab.assets import Articulation, RigidObject
 from isaaclab.managers import SceneEntityCfg
-from isaaclab.sensors import ContactSensor
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv

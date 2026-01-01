@@ -237,7 +237,7 @@ resampling_intervals: dict[str, int] = {
     "base_vel": 375,  # 7.5 seconds
 }
 
-""" The usd_alg_extra_cfg dictionary can be used to define additional configuration 
+""" The usd_alg_extra_cfg dictionary can be used to define additional configuration
 parameters for the USD algorithm, or to override the default parameters."""
 usd_alg_extra_cfg = {
     "heading": {

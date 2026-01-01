@@ -4,8 +4,6 @@
 
 from __future__ import annotations
 
-from dataclasses import MISSING
-
 from isaaclab.managers.action_manager import ActionTerm, ActionTermCfg
 from isaaclab.utils import configclass
 

@@ -6,19 +6,17 @@ from __future__ import annotations
 
 import math
 import torch
-import torch.nn as nn
 import torch.optim as optim
-from collections import defaultdict, deque
-from torch.distributions import Categorical, Dirichlet, Normal, Uniform, VonMises
-from typing import Generator, Literal
+from collections import deque
+from torch.distributions import Categorical, Dirichlet, Normal
+from typing import Literal
 
 from rsl_rl.modules import DictFlattener, SimBa
-from rsl_rl.utils import TIMER_CUMULATIVE, detach, mean_gradient_norm, to_device
+from rsl_rl.utils import mean_gradient_norm
 from rsl_rl.utils.mirroring import remove_symmetry_subspaces
 
 from .base_skill_discovery import BaseSkillDiscovery
-from .distributions import bessel_iv, log_bessel_iv_2term, vmf_log_prob, vmf_log_prob_scipy
-from .metra import METRA
+from .distributions import vmf_log_prob
 
 
 class DIAYN(BaseSkillDiscovery):
@@ -68,7 +66,7 @@ class DIAYN(BaseSkillDiscovery):
             num_deterministic_skills: Number of deterministic skills for debugging
             lr: Learning rate for the discriminator networks
             lambda_exploration: Weight for the exploration reward
-            skill_disentanglement: Wether to use skill disentanglement (DUSDI)
+            skill_disentanglement: Whether to use skill disentanglement (DUSDI)
             complement_sample_obs: Observation of all other state factors (DUSDI)
             max_grad_norm: Maximum gradient norm for the discriminator networks
             entropy_bonus: Entropy bonus for q(z|s)
@@ -88,7 +86,7 @@ class DIAYN(BaseSkillDiscovery):
 
         # - Components
         self.skill_dim = skill_dim
-        num_discriminators = num_discriminators
+        self.num_discriminators = num_discriminators
         assert "skill" not in sample_obs, "The sample_obs must NOT contain the skill key."
         self.optimistic_exploration = num_discriminators > 1
         skill_disentanglement = skill_disentanglement and bool(complement_sample_obs)
@@ -454,8 +452,8 @@ class DIAYN(BaseSkillDiscovery):
             )
 
         log_p_z = self.skill_distribution.log_prob(skill)  # / self.skill_distribution.entropy().abs()
-        penality = log_q_z_given_s - log_p_z
-        return -penality
+        penalty = log_q_z_given_s - log_p_z
+        return -penalty
 
     ##
     # - Update
@@ -476,7 +474,7 @@ class DIAYN(BaseSkillDiscovery):
 
         if self.symmetry_zero_pad_skills:
             # here the skills are symmetry augmented, so we need to be careful
-            if not self.skill_distribution_type in ["categorical", "dirichlet", "uniform", "beta", "uniform_sphere"]:
+            if self.skill_distribution_type not in ["categorical", "dirichlet", "uniform", "beta", "uniform_sphere"]:
                 raise ValueError("Invalid skill distribution type for symmetry zero padding.")
 
             skills = skills[: skills.shape[0] // num_augs, : self.skill_dim]
@@ -537,8 +535,8 @@ class DIAYN(BaseSkillDiscovery):
             "DIAYN/q_entropy": self.entropy_from_logits(logits).item(),
             "DIAYN/mean_gradient_norm": mean_gradient_norm(self.discriminators),
             "DIAYN/mean_likelihood": torch.exp(-torch.tensor(nlls)).mean().item(),
-            "DIAYN/mean_accuracy": (torch.tensor(self.logging_diayn_accuracy).mean().item()),
-            "DIAYN/mean_cosine_similarity": (torch.tensor(self.logging_cosine_similarity).mean().item()),
+            "DIAYN/mean_accuracy": torch.tensor(self.logging_diayn_accuracy).mean().item(),
+            "DIAYN/mean_cosine_similarity": torch.tensor(self.logging_cosine_similarity).mean().item(),
             "DIAYN/reward_diayn": torch.tensor(self.logging_diayn_reward).mean().item(),
             "DIAYN/reward_exploration": (
                 torch.tensor(self.logging_exploration_reward).mean().item() * self.lambda_exploration
@@ -760,13 +758,13 @@ class DIAYN(BaseSkillDiscovery):
             deterministic_skills = torch.cat([skills, torch.zeros_like(skills)], dim=0)
         else:
             deterministic_skills = torch.cat([skills, -skills], dim=0)
-        repeates = int(num_envs // deterministic_skills.shape[0]) + 1
+        repeats = int(num_envs // deterministic_skills.shape[0]) + 1
 
         if self.skill_distribution_type == "categorical":
             # make sure the deterministic skills are in the support of the distribution
-            deterministic_skills = deterministic_skills.repeat(repeates, 1)
+            deterministic_skills = deterministic_skills.repeat(repeats, 1)
         else:
-            for i in range(repeates):
+            for i in range(repeats):
                 deterministic_skills = torch.cat(
                     [deterministic_skills, skills / (2 ** (1 + i)), -skills / (2 ** (1 + i))], dim=0
                 )
@@ -924,14 +922,12 @@ class DIAYN(BaseSkillDiscovery):
                     f"Symmetry augmentation is not implemented for {self.skill_distribution_type}"
                 )
         elif skill.shape[-1] == 2:
-
             lr_skill = skill[:, [1, 0]].clone()
             fb_skill = skill[:, [1, 0]].clone()
             rot_skill = skill.clone()
         else:
             raise NotImplementedError(
-                f"Symmetry augmentation is only implemented for skills with a multiple of 4, "
-                f"but got {skill.shape[-1]}"
+                f"Symmetry augmentation is only implemented for skills with a multiple of 4, but got {skill.shape[-1]}"
             )
 
         return torch.cat([skill, lr_skill, fb_skill, rot_skill], dim=0)
@@ -1047,4 +1043,4 @@ class DIAYN(BaseSkillDiscovery):
 
         except Exception as e:
             print(f"Error during DIAYN visualization: {e}")
-            return None
+            pass

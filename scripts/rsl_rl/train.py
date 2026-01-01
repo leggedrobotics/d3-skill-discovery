@@ -2,10 +2,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 """Script to train RL agent with RSL-RL."""
 
@@ -87,17 +83,6 @@ def main(
     agent_cfg: RslRlOnPolicyRunnerCfg | RslCRlOnPolicyRunnerCfg,
 ):
     """Train with RSL-RL agent."""
-    # ugly hack to check if the environment is CRL or not
-    try:
-        _ = env_cfg.observations.policy_goal
-        is_crl = True
-    except AttributeError:
-        is_crl = False
-
-    # if env_cfg.sim.dt < 0.01:
-    #     # set controller to 50Hz
-    #     env_cfg.decimation = int(1 // (50 * env_cfg.sim.dt))
-
     # check if usd
     is_usd = agent_cfg.usd is not None
 

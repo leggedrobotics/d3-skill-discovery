@@ -11,7 +11,6 @@ from __future__ import annotations
 import copy
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.distributions import Normal
 from torch.func import functional_call, stack_module_state, vmap
 from typing import Literal
@@ -485,12 +484,6 @@ class ParallelCritics(nn.Module):
         return x
 
 
-import copy
-import torch
-import torch.nn as nn
-from torch.func import functional_call, stack_module_state, vmap
-
-
 class ModelEnsemble(nn.Module):
     def __init__(self, critic_cls, critic_kwargs, num_critics):
         super().__init__()
@@ -659,7 +652,7 @@ class RelationalActorCriticTransformer(nn.Module):
             # to the i-th node in the provided node list
             joint_index_to_node_map = torch.eye(12).bool()
             skill_to_node_map = torch.zeros((5, 26))
-            skill_to_node_map[0, 0:2] = 1  # postion to torso
+            skill_to_node_map[0, 0:2] = 1  # position to torso
             skill_to_node_map[0, 14:] = 1  # base_velocity to torso
             skill_to_node_map[1:, 2:14] = 1  # feet to shanks
 
@@ -763,7 +756,8 @@ class RelationalActorCriticTransformer(nn.Module):
         print(f"[INFO] Actor number of parameters: {sum(p.numel() for p in self.actor.parameters()):_}")
         print(f"[INFO] Critic number of parameters: {sum(p.numel() for p in self.critics[0].parameters()):_}")
         print(
-            f"[INFO] Number of critics: {num_critics} ==> Total critic number of parameters: {sum(p.numel() for p in self.critics.parameters()):_}"
+            f"[INFO] Number of critics: {num_critics} ==> Total critic number of parameters:"
+            f" {sum(p.numel() for p in self.critics.parameters()):_}"
         )
         print(f"[INFO] Actor Transformer: \n{self.actor}\n")
         print(f"[INFO] Critic Transformer: \n{self.critics[0]}\n")

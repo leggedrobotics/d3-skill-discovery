@@ -4,7 +4,7 @@
 
 """Common functions that can be used to create curriculum for the learning environment.
 
-The functions can be passed to the :class:`omni.isaac.lab.managers.CurriculumTermCfg` object to enable
+The functions can be passed to the :class:`isaaclab.managers.CurriculumTermCfg` object to enable
 the curriculum introduced by the function.
 """
 
@@ -33,13 +33,12 @@ def terrain_levels_vel(
 
     .. note::
         It is only possible to use this term with the terrain type ``generator``. For further information
-        on different terrain types, check the :class:`omni.isaac.lab.terrains.TerrainImporter` class.
+        on different terrain types, check the :class:`isaaclab.terrains.TerrainImporter` class.
 
     Returns:
         The mean terrain level for the given environment ids.
     """
     # extract the used quantities (to enable type-hinting)
-    asset: Articulation = env.scene[asset_cfg.name]
     terrain: TerrainImporter = env.scene.terrain
 
     move_down = torch.zeros(len(env_ids), device=env.device, dtype=torch.bool)
@@ -71,7 +70,6 @@ class distance_traveled(ManagerTermBase):
         buffer_size: int = 10,
         robot_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
     ):
-
         robot: Articulation = env.scene[robot_cfg.name]
         if not hasattr(robot.data, "spawn_pose"):
             return 0.0
@@ -135,7 +133,7 @@ def terrain_levels_usd_perf(
         p_random_move_up: The probability of randomly moving up.
         p_random_move_down: The probability of randomly moving down.
         factor_name: The name of the factor to be used.
-        thresholds: The thresholds to decide wether to move up or down
+        thresholds: The thresholds to decide whether to move up or down
         maximize: If true, we move up if the metric is above the upper threshold.
                   If false, we move up if the metric is below the lower threshold.
 

@@ -9,9 +9,9 @@ from typing import TYPE_CHECKING
 
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.sensors import ContactSensor
-from isaaclab.utils.math import quat_from_euler_xyz, quat_rotate_inverse, wrap_to_pi, yaw_quat
 
 if TYPE_CHECKING:
+    from isaaclab.assets import Articulation
     from isaaclab.envs import ManagerBasedRLEnv
     from isaaclab.envs.mdp import UniformPose2dCommand
 

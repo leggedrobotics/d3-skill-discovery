@@ -12,7 +12,7 @@ import wandb
 def load_sweep_id(project_name, sweep_ids_path):
     """Load the sweep ID from the JSON file based on project name."""
     if os.path.exists(sweep_ids_path):
-        with open(sweep_ids_path, "r") as f:
+        with open(sweep_ids_path) as f:
             sweep_ids = json.load(f)
         sweep_id = sweep_ids.get(project_name)
         if sweep_id:

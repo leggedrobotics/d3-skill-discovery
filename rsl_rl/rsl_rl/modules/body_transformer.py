@@ -6,8 +6,6 @@ import torch
 import torch.nn as nn
 from typing import Literal
 
-from rsl_rl.utils import TIMER_CUMULATIVE
-
 from .transformer import TransformerLayer
 
 ##
@@ -190,7 +188,7 @@ class BodyTransformer(nn.Module):
         else:
             # e.g. alternate
             for i in range(num_layers):
-                self.mask_usage.append(True if i % 2 == 0 else False)
+                self.mask_usage.append(i % 2 == 0)
 
         # 7) We'll store obs_node_dict as-is, for the "list" keys
         #    but we remove the indexing_mat from it, because we already saved them as buffers

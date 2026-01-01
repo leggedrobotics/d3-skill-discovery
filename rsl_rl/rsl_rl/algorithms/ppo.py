@@ -15,7 +15,7 @@ from collections import defaultdict, deque
 from rsl_rl.intrinsic_motivation import FACTOR_USD
 from rsl_rl.modules import ActorCritic, ExponentialMovingAverageNormalizer
 from rsl_rl.storage import RolloutStorage
-from rsl_rl.utils import TIMER_CUMULATIVE, augment_anymal_action, augment_anymal_obs, mean_gradient_norm
+from rsl_rl.utils import augment_anymal_action, augment_anymal_obs, mean_gradient_norm
 
 
 class PPO:
@@ -196,7 +196,7 @@ class PPO:
                 sym_skill,
                 sym_dones,
                 sym_actions,
-                infos["observations"].get("rnd_extra", None),
+                infos["observations"].get("rnd_extra"),
             )
             usd_reward = torch.stack(sym_usd_reward.chunk(num_augs, dim=0), dim=0).mean(dim=0)
         else:
@@ -582,9 +582,9 @@ class PPO:
             reward_metric.update(
                 {
                     "Reward_Normalizer/Mean_Extrinsic_Reward": self.extrinsic_reward_normalizer.mean.mean().item(),
-                    "Reward_Normalizer/Std_Extrinsic_Reward": torch.sqrt(self.extrinsic_reward_normalizer.var)
-                    .mean()
-                    .item(),
+                    "Reward_Normalizer/Std_Extrinsic_Reward": (
+                        torch.sqrt(self.extrinsic_reward_normalizer.var).mean().item()
+                    ),
                 }
             )
 

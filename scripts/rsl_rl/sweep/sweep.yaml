@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 # https://docs.wandb.ai/guides/sweeps/sweep-config-keys/#distribution-options-for-random-and-bayesian-search
-program: d3_skill_discovery/scripts/rsl_rl/train.py
-# program: scripts/rsl_rl/train.py
+program: d3_skill_discovery/scripts/train.py
+# program: scripts/train.py
 description: "Sweep over hyperparameters for factorized usd (metra, diayn) ppo anymal"
 method: bayes  # or 'grid', 'random'
 metric:
@@ -34,7 +34,7 @@ command:
   - /isaac-sim/python.sh
   - ${program}
   - --task=Isaac-USD-AnymalRough-D-v0
-  - --num_envs=2048 #16384 8192 4096 2048 
+  - --num_envs=2048 #16384 8192 4096 2048
   - --logger=wandb
   - --headless
   - ${args_no_hyphens}

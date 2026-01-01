@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-from dataclasses import MISSING
-
 from isaaclab.managers import CommandTermCfg
 from isaaclab.utils import configclass
 

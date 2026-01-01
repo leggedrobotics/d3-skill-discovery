@@ -5,11 +5,11 @@
 from __future__ import annotations
 
 import torch
+from typing import TYPE_CHECKING
 
-from isaaclab.envs import ManagerBasedRLEnv
-from isaaclab.envs.mdp import UniformPose2dCommand
-from isaaclab.managers.manager_base import ManagerTermBase
-from isaaclab.managers.manager_term_cfg import TerminationTermCfg
+if TYPE_CHECKING:
+    from isaaclab.envs import ManagerBasedRLEnv
+    from isaaclab.envs.mdp import UniformPose2dCommand
 
 
 def goal_reached(

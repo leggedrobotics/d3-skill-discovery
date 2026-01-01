@@ -2,10 +2,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 from __future__ import annotations
 
@@ -20,13 +16,13 @@ if TELEOP:
     from isaaclab.devices import Se3Keyboard
 
 import carb
+
+import isaaclab.utils.math as math_utils
+import isaaclab.utils.string as string_utils
 from isaaclab.assets.articulation import Articulation
 from isaaclab.managers.action_manager import ActionTerm
 from isaaclab.markers import VisualizationMarkers
 from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG
-
-import isaaclab.utils.math as math_utils
-import isaaclab.utils.string as string_utils
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedEnv, ManagerBasedRLEnv
@@ -307,15 +303,14 @@ class ArticulatedWrench2DAction(ActionTerm):
             action_r_z = self.scale_tensor(actions.squeeze(), (0, 0.5, 1), (-self.max_rot_vel, 0, self.max_rot_vel))
 
         else:
-            ## scale action to max vel:
-            ## ie scale [0, 1] to [-max_vel, max_vel]
+            # scale action to max vel: i.e. scale [0, 1] to [-max_vel, max_vel]
             action_x = self.scale_tensor(
                 actions[:, 0], (0, 0.5, 1), (-self.max_velocity_backward, 0, self.max_velocity_forward)
             )
             action_y = self.scale_tensor(actions[:, 1], (0, 0.5, 1), (-self.max_vel_sideways, 0, self.max_vel_sideways))
             action_r_z = self.scale_tensor(actions[:, 2], (0, 0.5, 1), (-self.max_rot_vel, 0, self.max_rot_vel))
 
-            ## limit action to max vel:
+            # limit action to max vel:
             # vel_norm = torch.linalg.norm(actions[:, :2], dim=1)
             # above_max_vel = vel_norm > self.max_lin_vel
             # actions[above_max_vel, :2] = (

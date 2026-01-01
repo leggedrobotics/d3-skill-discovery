@@ -4,7 +4,7 @@
 
 import isaaclab.sim as sim_utils
 from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets import ArticulationCfg, AssetBase, AssetBaseCfg, RigidObject, RigidObjectCfg
+from isaaclab.assets import ArticulationCfg, RigidObjectCfg
 
 # - robot:
 ROBOT_CFG = RigidObjectCfg(

@@ -2,24 +2,16 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-# Copyright (c) 2022-2024, The Isaac Lab Project Developers.
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
 
 from __future__ import annotations
 
 import torch
 
-# from omni.isaac.orbit.sensors import RayCaster
 from isaaclab.assets import RigidObject
 from isaaclab.envs import ManagerBasedRLEnv
-
-# from omni.isaac.contrib_tasks.pedipulation.assets.legged_robot import LeggedRobot
 from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers.command_manager import CommandManager
-from isaaclab.sensors import RayCaster
-from isaaclab.utils.math import quat_rotate_inverse, subtract_frame_transforms, wrap_to_pi, yaw_quat
+from isaaclab.utils.math import quat_rotate_inverse, wrap_to_pi, yaw_quat
 
 
 def foot_tracking_commands(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
@@ -45,7 +37,6 @@ def box_pos(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg) -> torch.Tensor:
     """
     asset: RigidObject = env.scene[asset_cfg.name]
     box_pos_w = asset.data.root_pos_w
-    box_quat = asset.data.root_quat_w
     robot_pos_w = env.scene["robot"].data.root_pos_w
     robot_base_quat_q = env.scene["robot"].data.root_quat_w
     # Transform desired foot position from env_origin in current robot base frame

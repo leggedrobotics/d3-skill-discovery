@@ -11,8 +11,7 @@ from collections import defaultdict, deque
 from typing import Any, Literal
 
 from rsl_rl.modules import ExponentialMovingAverageNormalizer
-from rsl_rl.utils import TIMER_CUMULATIVE, is_valid
-from rsl_rl.utils.mirroring import remove_symmetry_subspaces
+from rsl_rl.utils import is_valid
 
 from .base_skill_discovery import BaseSkillDiscovery
 from .diayn import DIAYN
@@ -117,7 +116,7 @@ class FACTOR_USD:
         self.any_val_ensembles = torch.tensor([(b - a) > 1 for a, b in val_slices]).any().item()
 
         obs_key_set = set(obs.keys())
-        factor_key_set = set([item for sublist in list(self.factor_to_obs_key_map.values()) for item in sublist])
+        factor_key_set = {item for sublist in list(self.factor_to_obs_key_map.values()) for item in sublist}
         if not factor_key_set.issubset(obs_key_set):
             extra_keys = factor_key_set - obs_key_set
             raise ValueError(f"FACTOR_USD.__init__ got unexpected factor keys: {extra_keys}")
@@ -450,8 +449,8 @@ class FACTOR_USD:
         #     [skills, skills * 2 / 3, skills * 1 / 3, skills * 0, -skills * 1 / 3, -skills * 2 / 3, -skills], dim=0
         # )
         deterministic_skills = torch.cat([skills, -skills], dim=0)
-        repeates = int(num_envs // deterministic_skills.shape[0]) + 1
-        for i in range(repeates):
+        repeats = int(num_envs // deterministic_skills.shape[0]) + 1
+        for i in range(repeats):
             deterministic_skills = torch.cat(
                 [deterministic_skills, skills / (2 ** (1 + i)), -skills / (2 ** (1 + i))], dim=0
             )
@@ -673,7 +672,6 @@ class FACTOR_USD:
         quantile = 1 / 3
         skill_index = 0
         for factor_name in self.factor_skill_discovery_algs.keys():
-
             next_skill_index = skill_index + self.skill_dims[factor_name]
             factor_skill = self._skill[:, skill_index:next_skill_index]
             skill_index = next_skill_index
@@ -682,7 +680,7 @@ class FACTOR_USD:
             # pairwise dist between states with close skills, 10% of the closest
             skill_dist = torch.cdist(factor_skill[:max_num_envs], factor_skill[:max_num_envs], p=2)
             if len(self.quantile_lower_list[factor_name]) < 100:
-                # we calcualte the quantile for the first 100 steps to get a good estimate
+                # we calculate the quantile for the first 100 steps to get a good estimate
                 thresh_lower = torch.quantile(skill_dist[~torch.eye(max_num_envs).bool()], quantile)
                 thresh_upper = torch.quantile(skill_dist[~torch.eye(max_num_envs).bool()], 1 - quantile)
                 self.quantile_lower_list[factor_name].append(thresh_lower.item())
