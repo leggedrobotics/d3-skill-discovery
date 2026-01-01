@@ -81,13 +81,13 @@ To use USD algorithms, your Isaac Lab environment must define:
 
 factors: dict[str, tuple[list[str], Literal["metra", "diayn"]]]
 # Maps factor names to (observation keys, algorithm type)
-  
+
 skill_dims: dict[str, int]
 # Dimensionality of each skill factor
-  
+
 resampling_intervals: dict[str, int]
 # How often to resample each skill factor (in timesteps)
-  
+
 usd_alg_extra_cfg: dict[str, dict]
 # Algorithm-specific hyperparameters per factor
 ```
@@ -115,17 +115,17 @@ class MyUSDAlgorithm(BaseSkillDiscovery):
         """Compute intrinsic reward for (observation, skill) pair."""
         # Your reward logic here
         pass
-    
+
     def sample_skill(self, envs_to_sample: torch.Tensor, **kwargs) -> torch.Tensor:
         """Sample skill vector z ~ p(z)."""
         # Your sampling logic here
         pass
-    
+
     def update(self, observation_batch, **kwargs) -> dict:
         """Update algorithm (e.g., train discriminator)."""
         # Your training logic here
         return {"loss": loss_value, "accuracy": acc}
-    
+
     # ... implement other required methods
 ```
 

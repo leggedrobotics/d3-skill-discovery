@@ -435,25 +435,25 @@ class MyUSDAlgorithm(BaseSkillDiscovery):
         """Calculate the intrinsic reward for the underlying RL algorithm."""
         # Your reward computation logic
         pass
-    
+
     def sample_skill(self, envs_to_sample: torch.Tensor, **kwargs) -> torch.Tensor:
         """Sample a skill z."""
         # Your skill sampling logic
         pass
-    
+
     def update(self, observation_batch, **kwargs) -> dict:
         """Update the intrinsic motivation algorithm (e.g., train discriminator)."""
         # Your update logic (e.g., discriminator training)
         return {"loss": loss_value}
-    
+
     def get_save_dict(self) -> dict:
         """Return state dict for saving."""
         return {"model_state": self.model.state_dict()}
-    
+
     def load(self, state_dict: dict, **kwargs) -> None:
         """Load the algorithm state."""
         self.model.load_state_dict(state_dict["model_state"])
-    
+
     @property
     def performance_metric(self) -> float:
         """Return performance metric between 0 and 1."""
