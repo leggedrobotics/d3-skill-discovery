@@ -160,7 +160,7 @@ class SkillControlGUI:
         else:
             for i in range(0, dim, 2):
                 size = 2 if i + 1 < dim else 1
-                tag = f"{name}_axis{i//2}"
+                tag = f"{name}_axis{i // 2}"
                 blk["axis_tags"].append(tag)
                 if size == 2:
                     dpg.add_slider_floatx(
@@ -169,7 +169,7 @@ class SkillControlGUI:
                         min_value=lo,
                         max_value=hi,
                         default_value=blk["values"][i : i + 2],
-                        label="" if dim == 2 else f"{name}[{i}:{i+2}]",
+                        label="" if dim == 2 else f"{name}[{i}:{i + 2}]",
                         user_data=(blk, i),
                         callback=self._axis_cb,
                     )

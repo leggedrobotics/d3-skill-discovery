@@ -1027,7 +1027,7 @@ class DIAYN(BaseSkillDiscovery):
 
             # Create legend handles for each skill
             legend_handles = [
-                matplotlib.patches.Patch(color=skill_colors[i], label=f"{i+1}") for i in range(self.skill_dim)
+                matplotlib.patches.Patch(color=skill_colors[i], label=f"{i + 1}") for i in range(self.skill_dim)
             ]
             # Add the legend to the plot
             ax[0].legend(handles=legend_handles, title="Skills", loc="upper right")
@@ -1035,7 +1035,9 @@ class DIAYN(BaseSkillDiscovery):
             ax[0].set_title(f"Observations, {dim}d")
             ax[1].set_title(f"Logits, {logit_dim}d")
 
-            extra_str = f"param: {round(self.dirichlet_param,3)}" if self.skill_distribution_type == "dirichlet" else ""
+            extra_str = (
+                f"param: {round(self.dirichlet_param, 3)}" if self.skill_distribution_type == "dirichlet" else ""
+            )
             fig.suptitle(f"DIAYN, factor: {factor_name}, z type: {self.skill_distribution_type} {extra_str}")
             fig_save_path = os.path.join(save_path, file_name + ".png")
             fig.savefig(fig_save_path, dpi=300, bbox_inches="tight")

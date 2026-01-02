@@ -240,8 +240,7 @@ class OnPolicyRunner:
             log_string = (
                 f"""{'#' * width}\n"""
                 f"""{str.center(width, ' ')}\n\n"""
-                f"""{'Computation:':>{pad}} {fps:.0f} steps/s (collection: {locs[
-                            'collection_time']:.3f}s, learning {locs['learn_time']:.3f}s)\n"""
+                f"""{'Computation:':>{pad}} {fps:.0f} steps/s (collection: {locs['collection_time']:.3f}s, learning {locs['learn_time']:.3f}s)\n"""
                 f"""{'Value function loss:':>{pad}} {locs['mean_value_loss']:.4f}\n"""
                 f"""{'Surrogate loss:':>{pad}} {locs['mean_surrogate_loss']:.4f}\n"""
                 f"""{'Mean action noise std:':>{pad}} {mean_std.item():.2f}\n"""
@@ -254,8 +253,7 @@ class OnPolicyRunner:
             log_string = (
                 f"""{'#' * width}\n"""
                 f"""{str.center(width, ' ')}\n\n"""
-                f"""{'Computation:':>{pad}} {fps:.0f} steps/s (collection: {locs[
-                            'collection_time']:.3f}s, learning {locs['learn_time']:.3f}s)\n"""
+                f"""{'Computation:':>{pad}} {fps:.0f} steps/s (collection: {locs['collection_time']:.3f}s, learning {locs['learn_time']:.3f}s)\n"""
                 f"""{'Value function loss:':>{pad}} {locs['mean_value_loss']:.4f}\n"""
                 f"""{'Surrogate loss:':>{pad}} {locs['mean_surrogate_loss']:.4f}\n"""
                 f"""{'Mean action noise std:':>{pad}} {mean_std.item():.2f}\n"""
@@ -269,8 +267,7 @@ class OnPolicyRunner:
             f"""{'Total timesteps:':>{pad}} {self.tot_timesteps:_}\n"""
             f"""{'Iteration time:':>{pad}} {iteration_time:.2f}s\n"""
             f"""{'Total time:':>{pad}} {self.tot_time:.2f}s\n"""
-            f"""{'ETA:':>{pad}} {self.tot_time / (locs['it'] + 1) * (
-                               locs['num_learning_iterations'] - locs['it']):.1f}s\n"""
+            f"""{'ETA:':>{pad}} {self.tot_time / (locs['it'] + 1) * (locs['num_learning_iterations'] - locs['it']):.1f}s\n"""
         )
         print(log_string)
 

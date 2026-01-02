@@ -56,10 +56,10 @@ class TimerCumulative:
         max_val_len += max_val_len // 3
         print_str = "\nTimer in seconds\n"
         for k, v in self.cumulative_time_dict.items():
-            print_str += f"{k:<{max_key_len}}: {v:>{max_val_len+4}_.3f}s\n"
+            print_str += f"{k:<{max_key_len}}: {v:>{max_val_len + 4}_.3f}s\n"
 
         total_time = time.time() - self.global_start_time
-        print_str += f"{'Total':<{max_key_len}}: {total_time:>{max_val_len+4}_.3f}s\n"
+        print_str += f"{'Total':<{max_key_len}}: {total_time:>{max_val_len + 4}_.3f}s\n"
         return print_str
 
     def __call__(self, arg: Callable | str) -> Callable:

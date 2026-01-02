@@ -8,11 +8,11 @@
 
 ## 📖 Overview
 
-This directory contains an **extended version of [d3_rsl_rl](https://github.com/leggedrobotics/d3_rsl_rl)** (v[2.2.0](https://github.com/leggedrobotics/d3_rsl_rl/releases/tag/v2.2.0)), the Robotic Systems Lab's reinforcement learning library, with added support for **unsupervised skill discovery (USD) algorithms**.
+This directory contains an **extended version of [rsl_rl](https://github.com/leggedrobotics/rsl_rl)** (v[2.2.0](https://github.com/leggedrobotics/rsl_rl/releases/tag/v2.2.0), renamed to `d3_rsl_rl`), the Robotic Systems Lab's reinforcement learning library, with added support for **unsupervised skill discovery (USD) algorithms**.
 
 ### 🔗 Based on RSL-RL
 
-[RSL-RL](https://github.com/leggedrobotics/d3_rsl_rl) is a lightweight and modular library for on-policy reinforcement learning, originally developed at ETH Zurich's Robotic Systems Lab. It provides efficient implementations of PPO and related algorithms optimized for robot learning.
+[RSL-RL](https://github.com/leggedrobotics/rsl_rl) is a lightweight and modular library for on-policy reinforcement learning, originally developed at ETH Zurich's Robotic Systems Lab. It provides efficient implementations of PPO and related algorithms optimized for robot learning.
 
 ### ✨ What We Extend
 
