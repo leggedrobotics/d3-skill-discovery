@@ -25,6 +25,6 @@ setup(
         "GitPython",
         "onnx",
         "wandb",
-        "moviepy",
+        "moviepy<2",
     ],
 )
