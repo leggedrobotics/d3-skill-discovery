@@ -43,15 +43,19 @@ class UsdOnPolicyRunner:
 
         usd_obs = infos["observations"].get("usd", obs)
 
+        full_skill_dim = sum(env.unwrapped.cfg.skill_dims.values()) + (len(env.unwrapped.cfg.factors) + 1) * int(
+            self.cfg["usd"]["randomize_factor_weights"] and not self.cfg["usd"]["disable_factor_weighting"]
+        )
+
         if isinstance(obs, torch.Tensor):
             # flattened observation
             num_obs = obs.shape[1]
             if "critic" in infos["observations"]:
                 num_critic_obs = infos["observations"]["critic"].shape[1]
             else:
-                num_critic_obs = num_obs + skill_dim
+                num_critic_obs = num_obs + full_skill_dim
             actor_critic: ActorCritic = actor_critic_class(
-                num_obs + skill_dim, num_critic_obs + skill_dim, self.env.num_actions, **self.policy_cfg
+                num_obs + full_skill_dim, num_critic_obs + full_skill_dim, self.env.num_actions, **self.policy_cfg
             ).to(self.device)
         else:
             # dictionary observation
@@ -66,10 +70,6 @@ class UsdOnPolicyRunner:
 
             if not self.cfg["usd"]["value_decomposition"]:
                 num_separate_rewards = 1
-
-            full_skill_dim = sum(env.unwrapped.cfg.skill_dims.values()) + (len(env.unwrapped.cfg.factors) + 1) * int(
-                self.cfg["usd"]["randomize_factor_weights"] and not self.cfg["usd"]["disable_factor_weighting"]
-            )
 
             skill_dict = {"skill": torch.zeros(self.env.num_envs, full_skill_dim, device=self.device)}
             actor_critic: RelationalActorCriticTransformer | RelationalActorCriticRecurrent = actor_critic_class(
@@ -136,7 +136,7 @@ class UsdOnPolicyRunner:
         self.alg.init_storage(
             self.env.num_envs,
             self.num_steps_per_env,
-            [num_obs + skill_dim] if num_obs else obs | skill_dict,
+            [num_obs + full_skill_dim] if num_obs else obs | skill_dict,
             [num_critic_obs] if num_critic_obs else critic_obs,  # TODO critic obs dict
             usd_obs | skill_dict | infos["observations"].get("rnd_extra", {}),
             [self.env.num_actions],
