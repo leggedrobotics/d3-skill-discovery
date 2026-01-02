@@ -1,0 +1,80 @@
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+x-default-d3-skill-discovery-environment: &default-d3-skill-discovery-environment
+  - OMNI_KIT_ALLOW_ROOT=1
+
+x-default-d3-skill-discovery-deploy: &default-d3-skill-discovery-deploy
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: all
+          capabilities: [ gpu ]
+
+services:
+  d3-skill-discovery:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: d3-skill-discovery
+    container_name: d3-skill-discovery
+    volumes:
+      # Project directory
+      - type: bind
+        source: ../
+        target: /workspace/d3-skill-discovery
+      - type: volume
+        source: d3-skill-discovery-logs
+        target: /workspace/d3-skill-discovery/logs
+      # Isaac Sim cache directories
+      - type: volume
+        source: isaac-cache-kit
+        target: /isaac-sim/kit/cache
+      - type: volume
+        source: isaac-cache-ov
+        target: /root/.cache/ov
+      - type: volume
+        source: isaac-cache-pip
+        target: /root/.cache/pip
+      - type: volume
+        source: isaac-cache-gl
+        target: /root/.cache/nvidia/GLCache
+      - type: volume
+        source: isaac-cache-compute
+        target: /root/.nv/ComputeCache
+      - type: volume
+        source: isaac-logs
+        target: /root/.nvidia-omniverse/logs
+      - type: volume
+        source: isaac-carb-logs
+        target: /isaac-sim/kit/logs/Kit/Isaac-Sim
+      - type: volume
+        source: isaac-data
+        target: /root/.local/share/ov/data
+      - type: volume
+        source: isaac-docs
+        target: /root/Documents
+    network_mode: host
+    environment: *default-d3-skill-discovery-environment
+    deploy: *default-d3-skill-discovery-deploy
+    # This is the entrypoint for the container
+    entrypoint: bash
+    stdin_open: true
+    tty: true
+
+volumes:
+  # isaac-sim
+  isaac-cache-kit:
+  isaac-cache-ov:
+  isaac-cache-pip:
+  isaac-cache-gl:
+  isaac-cache-compute:
+  isaac-logs:
+  isaac-carb-logs:
+  isaac-data:
+  isaac-docs:
+  # isaac-locoma-suite
+  d3-skill-discovery-logs:

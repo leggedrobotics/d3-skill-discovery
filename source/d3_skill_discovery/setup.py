@@ -1,0 +1,50 @@
+# Copyright (c) 2025, ETH Zurich, Rafael Cathomen
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+"""Installation script for the 'd3_skill_discovery' python package."""
+
+from setuptools import find_packages, setup
+
+
+# Read version from package
+def get_version():
+    """Get version from the package __init__.py file."""
+    import os
+
+    here = os.path.abspath(os.path.dirname(__file__))
+    version_file = os.path.join(here, "d3_skill_discovery", "__init__.py")
+
+    with open(version_file) as f:
+        for line in f:
+            if line.startswith("__version__"):
+                return line.split("=")[1].strip().strip('"').strip("'")
+    return "0.1.0"
+
+
+# Minimum dependencies required prior to installation
+INSTALL_REQUIRES = [
+    "psutil",
+]
+
+# Installation operation
+setup(
+    name="d3_skill_discovery",
+    packages=find_packages(),
+    author="Legged Robotics Lab",
+    maintainer="Rafael Cathomen",
+    url="https://github.com/leggedrobotics/d3_skill_discovery",
+    version=get_version(),
+    description="Unsupervised skill discovery environments for Isaac Lab",
+    keywords=["robotics", "rl", "isaac", "simulation"],
+    install_requires=INSTALL_REQUIRES,
+    license="BSD-3-Clause",
+    include_package_data=True,
+    python_requires=">=3.10",
+    classifiers=[
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3.10",
+        "Isaac Sim :: 4.5.0",
+    ],
+    zip_safe=False,
+)

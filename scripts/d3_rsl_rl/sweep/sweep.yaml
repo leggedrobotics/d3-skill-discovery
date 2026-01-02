@@ -1,0 +1,40 @@
+# Copyright (c) 2025, ETH Zurich, Rafael Cathomen
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# https://docs.wandb.ai/guides/sweeps/sweep-config-keys/#distribution-options-for-random-and-bayesian-search
+program: d3_skill_discovery/scripts/train.py
+# program: scripts/train.py
+description: "Sweep over hyperparameters for factorized usd (metra, diayn) ppo anymal"
+method: bayes  # or 'grid', 'random'
+metric:
+  name: Factor_Metrics/position  # wandb metric to optimize
+  goal: maximize  # 'minimize' or 'maximize' if optimizing a loss
+parameters:
+# # agent
+  agent.seed:
+    min: 0
+    max: 1000
+# # usd
+  agent.algorithm.symmetry_augmentation:
+    values: [False]
+  # agent.usd.disable_style_reward:
+  #   values: [True, False]
+  # agent.usd.disable_regularization:
+  #   values: [True, False]
+  agent.usd.disable_factor_weighting:
+    values: [True, False]
+
+  # env.episode_length_s:
+  #   values: ["15.0", "30.0"]
+
+
+
+command:
+  - /isaac-sim/python.sh
+  - ${program}
+  - --task=Isaac-USD-AnymalRough-D-v0
+  - --num_envs=2048 #16384 8192 4096 2048
+  - --logger=wandb
+  - --headless
+  - ${args_no_hyphens}

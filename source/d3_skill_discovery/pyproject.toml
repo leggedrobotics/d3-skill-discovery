@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64", "wheel", "toml"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "d3_skill_discovery"
+dynamic = ["version", "description", "authors", "maintainers", "urls", "keywords"]
+readme = "README.md"
+license = {text = "BSD-3-Clause"}
+requires-python = ">=3.10"
+classifiers = [
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.10",
+    "Isaac Sim :: 4.5.0",
+]
+dependencies = [
+    "psutil",
+]
+
+[tool.setuptools]
+packages = ["d3_skill_discovery"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "d3_skill_discovery.__version__"}
