@@ -17,13 +17,13 @@ from collections import deque
 from moviepy.editor import VideoFileClip, clips_array
 from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
 
-import rsl_rl
-from rsl_rl.algorithms import PPO
-from rsl_rl.env import VecEnv
-from rsl_rl.intrinsic_motivation import FACTOR_USD
-from rsl_rl.modules import ActorCritic  # noqa: F401
-from rsl_rl.modules import EmpiricalNormalization, RelationalActorCriticRecurrent, RelationalActorCriticTransformer
-from rsl_rl.utils import store_code_state
+import d3_rsl_rl
+from d3_rsl_rl.algorithms import PPO
+from d3_rsl_rl.env import VecEnv
+from d3_rsl_rl.intrinsic_motivation import FACTOR_USD
+from d3_rsl_rl.modules import ActorCritic  # noqa: F401
+from d3_rsl_rl.modules import EmpiricalNormalization, RelationalActorCriticRecurrent, RelationalActorCriticTransformer
+from d3_rsl_rl.utils import store_code_state
 
 
 class UsdOnPolicyRunner:
@@ -150,7 +150,7 @@ class UsdOnPolicyRunner:
         self.video_counter = -1
         self.video_writers = None
         self.current_learning_iteration = 0
-        self.git_status_repos = [rsl_rl.__file__]
+        self.git_status_repos = [d3_rsl_rl.__file__]
 
     def learn(self, num_learning_iterations: int, init_at_random_ep_len: bool = False):
         # initialize writer
@@ -160,12 +160,12 @@ class UsdOnPolicyRunner:
             self.logger_type = self.logger_type.lower()
 
             if self.logger_type == "neptune":
-                from rsl_rl.utils.neptune_utils import NeptuneSummaryWriter
+                from d3_rsl_rl.utils.neptune_utils import NeptuneSummaryWriter
 
                 self.writer = NeptuneSummaryWriter(log_dir=self.log_dir, flush_secs=10, cfg=self.cfg)
                 self.writer.log_config(self.env.cfg, self.cfg, self.alg_cfg, self.policy_cfg)
             elif self.logger_type == "wandb":
-                from rsl_rl.utils.wandb_utils import WandbSummaryWriter
+                from d3_rsl_rl.utils.wandb_utils import WandbSummaryWriter
 
                 self.writer = WandbSummaryWriter(log_dir=self.log_dir, flush_secs=10, cfg=self.cfg)
                 self.writer.log_config(self.env.cfg, self.cfg, self.alg_cfg, self.policy_cfg)

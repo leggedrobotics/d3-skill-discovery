@@ -10,8 +10,8 @@ from __future__ import annotations
 import torch
 import torch.nn as nn
 
-from rsl_rl.modules.actor_critic import ActorCritic, get_activation
-from rsl_rl.utils import unpad_trajectories
+from d3_rsl_rl.modules.actor_critic import ActorCritic, get_activation
+from d3_rsl_rl.utils import unpad_trajectories
 
 
 class ActorCriticRecurrent(ActorCritic):

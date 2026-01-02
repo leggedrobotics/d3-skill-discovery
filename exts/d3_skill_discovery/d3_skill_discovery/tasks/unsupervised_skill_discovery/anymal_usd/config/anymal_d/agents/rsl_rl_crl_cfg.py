@@ -6,7 +6,7 @@
 # python scripts/train.py --task Isaac-Games-HideAndSeek-Simple-D-v0 --num_envs 128 --headless --video --video_length 200 --video_interval 5000 --logger wandb --experiment_name move_boxes_to_center --log_project_name move_boxes_to_center
 
 from isaaclab.utils import configclass
-from isaaclab_tasks.utils.wrappers.rsl_rl.crl_cfg import (
+from isaaclab_tasks.utils.wrappers.d3_rsl_rl.crl_cfg import (
     RslCRlOnPolicyRunnerCfg,
     RslRlContrastiveCriticCfg,
     RslRlCrlAlgorithmCfg,

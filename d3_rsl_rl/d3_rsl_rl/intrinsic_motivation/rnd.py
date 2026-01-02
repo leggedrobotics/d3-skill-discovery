@@ -13,9 +13,9 @@ import torch
 import torch.nn as nn
 from collections import deque
 
-from rsl_rl.modules.normalizer import EmpiricalDiscountedVariationNormalization  # noqa: F401
-from rsl_rl.modules.normalizer import EmpiricalNormalization, ExponentialMovingAverageNormalizer
-from rsl_rl.utils import extract_batch_shape, flatten_batch, unflatten_batch
+from d3_rsl_rl.modules.normalizer import EmpiricalDiscountedVariationNormalization  # noqa: F401
+from d3_rsl_rl.modules.normalizer import EmpiricalNormalization, ExponentialMovingAverageNormalizer
+from d3_rsl_rl.utils import extract_batch_shape, flatten_batch, unflatten_batch
 
 
 class RNDStateMLP(nn.Module):

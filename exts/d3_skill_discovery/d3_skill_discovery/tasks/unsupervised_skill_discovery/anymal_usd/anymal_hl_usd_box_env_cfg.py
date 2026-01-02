@@ -99,7 +99,7 @@ class ActionsCfg:
         low_level_action=mdp.JointPositionActionCfg(  # copied from velocity_env & box_climb_env
             asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True
         ),
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/usd_rough_sym_06/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/usd_rough_sym_06/exported/policy.pt",
         skill_policy_file_name="usd_metra2d_diayn2d.pt",
         skill_space={
             "position": ("metra_norm_matching", 2),

@@ -28,11 +28,11 @@ class ActionsCfg:
         low_level_action=mdp.JointPositionActionCfg(  # copied from velocity_env & box_climb_env
             asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True
         ),
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mildest_export_2/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/feet_metra_zero_pad_06_end/exported/policy.pt",
-        skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/simba_sym_08/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_6/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_7/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mildest_export_2/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/feet_metra_zero_pad_06_end/exported/policy.pt",
+        skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/simba_sym_08/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_6/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_7/exported/policy.pt",
         skill_space={
             "position": ("metra_norm_matching", 2),
             "feet": ("metra_norm_matching_zero_pad", 12),

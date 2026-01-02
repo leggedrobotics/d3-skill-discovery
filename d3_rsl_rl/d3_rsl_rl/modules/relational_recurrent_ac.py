@@ -12,8 +12,8 @@ import torch.nn as nn
 from torch.distributions import Normal
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
-from rsl_rl.modules.actor_critic import get_activation
-from rsl_rl.utils import unpad_trajectories
+from d3_rsl_rl.modules.actor_critic import get_activation
+from d3_rsl_rl.utils import unpad_trajectories
 
 from .transformer import PoolingModule, TransformerLayer
 

@@ -8,7 +8,7 @@ import argparse
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from isaaclab_tasks.utils.wrappers.rsl_rl import RslRlOnPolicyRunnerCfg
+    from isaaclab_tasks.utils.wrappers.d3_rsl_rl import RslRlOnPolicyRunnerCfg
 
 
 def add_rsl_rl_args(parser: argparse.ArgumentParser):
@@ -18,7 +18,7 @@ def add_rsl_rl_args(parser: argparse.ArgumentParser):
         parser: The parser to add the arguments to.
     """
     # create a new argument group
-    arg_group = parser.add_argument_group("rsl_rl", description="Arguments for RSL-RL agent.")
+    arg_group = parser.add_argument_group("d3_rsl_rl", description="Arguments for RSL-RL agent.")
     # -- experiment arguments
     arg_group.add_argument(
         "--experiment_name", type=str, default=None, help="Name of the experiment folder where logs will be stored."

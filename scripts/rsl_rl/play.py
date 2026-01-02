@@ -48,11 +48,11 @@ from skill_gui import SkillControlGUI
 
 # Import extensions to set up environment tasks
 import d3_skill_discovery.tasks  # noqa: F401
-from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner  # noqa: F401
+from d3_rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner  # noqa: F401
 
 from isaaclab.utils.dict import print_dict
 from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
-from isaaclab_tasks.utils.wrappers.rsl_rl import (
+from isaaclab_tasks.utils.wrappers.d3_rsl_rl import (
     RslRlOnPolicyRunnerCfg,
     RslRlVecEnvWrapper,
     export_policy_as_jit,
@@ -69,7 +69,7 @@ def main():
     agent_cfg: RslRlOnPolicyRunnerCfg = cli_args.parse_rsl_rl_cfg(args_cli.task, args_cli)
 
     # specify directory for logging experiments
-    log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
+    log_root_path = os.path.join("logs", "d3_rsl_rl", agent_cfg.experiment_name)
     log_root_path = os.path.abspath(log_root_path)
     print(f"[INFO] Loading experiment from directory: {log_root_path}")
     resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)

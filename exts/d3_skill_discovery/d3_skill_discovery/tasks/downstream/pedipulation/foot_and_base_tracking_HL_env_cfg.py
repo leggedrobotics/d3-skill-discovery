@@ -61,12 +61,12 @@ class ActionsCfg:
         low_level_action=mdp.JointPositionActionCfg(  # copied from velocity_env & box_climb_env
             asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True
         ),
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mildest_export_2/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mild_export_2/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_6/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_7/exported/policy.pt",
-        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/feet_metra_zero_pad_06/exported/policy.pt",
-        skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_factors_ppo_anymal_test/simba_sym_07/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mildest_export_2/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_mild_export_2/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_6/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/metra_diayn_footpos2_export_7/exported/policy.pt",
+        # skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/feet_metra_zero_pad_06/exported/policy.pt",
+        skill_policy_file_path="/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_factors_ppo_anymal_test/simba_sym_07/exported/policy.pt",
         # skill_policy_file_path="/home/rafael/Projects/MT/d3_skill_discovery/exts/d3_skill_discovery/d3_skill_discovery/tasks/unsupervised_skill_discovery/jump_boxes/mdp/nets/policy_walk_0310.jit",
         skill_space={
             # "velocity_command": ("metra_norm_matching", 5),

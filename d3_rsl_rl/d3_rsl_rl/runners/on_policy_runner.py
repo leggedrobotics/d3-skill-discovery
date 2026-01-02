@@ -14,16 +14,16 @@ import torch
 from collections import deque
 from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
 
-import rsl_rl
-from rsl_rl.algorithms import PPO, PPO_OG  # noqa: F401
-from rsl_rl.env import VecEnv
-from rsl_rl.modules import (
+import d3_rsl_rl
+from d3_rsl_rl.algorithms import PPO, PPO_OG  # noqa: F401
+from d3_rsl_rl.env import VecEnv
+from d3_rsl_rl.modules import (
     ActorCritic,
     EmpiricalNormalization,
     RelationalActorCriticRecurrent,
     RelationalActorCriticTransformer,
 )
-from rsl_rl.utils import store_code_state
+from d3_rsl_rl.utils import store_code_state
 
 
 class OnPolicyRunner:
@@ -82,7 +82,7 @@ class OnPolicyRunner:
         self.tot_timesteps = 0
         self.tot_time = 0
         self.current_learning_iteration = 0
-        self.git_status_repos = [rsl_rl.__file__]
+        self.git_status_repos = [d3_rsl_rl.__file__]
 
     def learn(self, num_learning_iterations: int, init_at_random_ep_len: bool = False):
         # initialize writer
@@ -92,12 +92,12 @@ class OnPolicyRunner:
             self.logger_type = self.logger_type.lower()
 
             if self.logger_type == "neptune":
-                from rsl_rl.utils.neptune_utils import NeptuneSummaryWriter
+                from d3_rsl_rl.utils.neptune_utils import NeptuneSummaryWriter
 
                 self.writer = NeptuneSummaryWriter(log_dir=self.log_dir, flush_secs=10, cfg=self.cfg)
                 self.writer.log_config(self.env.cfg, self.cfg, self.alg_cfg, self.policy_cfg)
             elif self.logger_type == "wandb":
-                from rsl_rl.utils.wandb_utils import WandbSummaryWriter
+                from d3_rsl_rl.utils.wandb_utils import WandbSummaryWriter
 
                 self.writer = WandbSummaryWriter(log_dir=self.log_dir, flush_secs=10, cfg=self.cfg)
                 self.writer.log_config(self.env.cfg, self.cfg, self.alg_cfg, self.policy_cfg)

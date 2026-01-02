@@ -12,10 +12,10 @@ import torch.nn as nn
 import torch.optim as optim
 from collections import defaultdict, deque
 
-from rsl_rl.intrinsic_motivation import FACTOR_USD
-from rsl_rl.modules import ActorCritic, ExponentialMovingAverageNormalizer
-from rsl_rl.storage import RolloutStorage
-from rsl_rl.utils import augment_anymal_action, augment_anymal_obs, mean_gradient_norm
+from d3_rsl_rl.intrinsic_motivation import FACTOR_USD
+from d3_rsl_rl.modules import ActorCritic, ExponentialMovingAverageNormalizer
+from d3_rsl_rl.storage import RolloutStorage
+from d3_rsl_rl.utils import augment_anymal_action, augment_anymal_obs, mean_gradient_norm
 
 
 class PPO:

@@ -11,8 +11,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from rsl_rl.modules import ActorCritic
-from rsl_rl.storage import RolloutStorageOG
+from d3_rsl_rl.modules import ActorCritic
+from d3_rsl_rl.storage import RolloutStorageOG
 
 
 class PPO_OG:

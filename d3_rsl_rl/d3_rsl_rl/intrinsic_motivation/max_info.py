@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from rsl_rl.modules import EmpiricalNormalization
+from d3_rsl_rl.modules import EmpiricalNormalization
 
 EPS = 1e-8
 

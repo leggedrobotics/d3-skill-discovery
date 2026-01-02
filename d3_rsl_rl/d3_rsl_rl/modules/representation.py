@@ -7,7 +7,7 @@ from __future__ import annotations
 import torch
 import torch.nn as nn
 
-from rsl_rl.utils import extract_batch_shape, flatten_batch, unflatten_batch
+from d3_rsl_rl.utils import extract_batch_shape, flatten_batch, unflatten_batch
 
 ##
 # Sub Nets

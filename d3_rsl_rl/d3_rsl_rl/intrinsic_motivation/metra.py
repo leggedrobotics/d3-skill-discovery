@@ -9,9 +9,9 @@ import torch
 import torch.optim as optim
 from collections import defaultdict, deque
 
-from rsl_rl.modules import DictFlattener, SimBa, StateRepresentation  # noqa: F401
-from rsl_rl.utils import mean_gradient_norm, to_device
-from rsl_rl.utils.mirroring import remove_symmetry_subspaces
+from d3_rsl_rl.modules import DictFlattener, SimBa, StateRepresentation  # noqa: F401
+from d3_rsl_rl.utils import mean_gradient_norm, to_device
+from d3_rsl_rl.utils.mirroring import remove_symmetry_subspaces
 
 from .base_skill_discovery import BaseSkillDiscovery
 

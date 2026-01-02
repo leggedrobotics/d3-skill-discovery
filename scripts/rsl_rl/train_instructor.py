@@ -46,15 +46,15 @@ import torch
 
 # Import extensions to set up environment tasks
 import d3_skill_discovery.tasks  # noqa: F401
-from rsl_rl.intrinsic_motivation import StyleInstructor
+from d3_rsl_rl.intrinsic_motivation import StyleInstructor
 
 # import metra policy
-from rsl_rl.modules.metra.actor import StochasticActor
-from rsl_rl.runners import OnPolicyRunner
+from d3_rsl_rl.modules.metra.actor import StochasticActor
+from d3_rsl_rl.runners import OnPolicyRunner
 
 from isaaclab.utils.dict import print_dict
 from isaaclab_tasks.utils import get_checkpoint_path, parse_env_cfg
-from isaaclab_tasks.utils.wrappers.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_onnx
+from isaaclab_tasks.utils.wrappers.d3_rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_onnx
 
 
 def main():
@@ -67,7 +67,7 @@ def main():
 
     env_cfg.episode_length_s = 3.0
     # specify directory for logging experiments
-    log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
+    log_root_path = os.path.join("logs", "d3_rsl_rl", agent_cfg.experiment_name)
     log_root_path = os.path.abspath(log_root_path)
     print(f"[INFO] Loading experiment from directory: {log_root_path}")
     resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
@@ -126,7 +126,7 @@ def main():
     # bad metra policy
     metra_obs = extras["observations"]["metra_policy"]
     bad_metra_policy_path = (
-        "/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/rsl_rl/metra_anymal_test/anymal_loc_bad/model_2000.pt"
+        "/home/rafael/Projects/MT/CRL/d3_skill_discovery/logs/d3_rsl_rl/metra_anymal_test/anymal_loc_bad/model_2000.pt"
     )
     metra_state_dict = torch.load(bad_metra_policy_path, weights_only=True)["model_state_dict"]["policy"]
     # make skill tensor

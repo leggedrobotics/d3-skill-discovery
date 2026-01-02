@@ -10,8 +10,8 @@ import torch
 from collections import defaultdict, deque
 from typing import Any, Literal
 
-from rsl_rl.modules import ExponentialMovingAverageNormalizer
-from rsl_rl.utils import is_valid
+from d3_rsl_rl.modules import ExponentialMovingAverageNormalizer
+from d3_rsl_rl.utils import is_valid
 
 from .base_skill_discovery import BaseSkillDiscovery
 from .diayn import DIAYN

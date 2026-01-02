@@ -107,7 +107,7 @@ cd d3-skill-discovery
 <br>
 
 The installation script will:
-- ✅ Install the [`rsl_rl`](rsl_rl/) package with USD algorithms
+- ✅ Install the [`d3_rsl_rl`](d3_rsl_rl/) package with USD algorithms
 - ✅ Register the [`d3_skill_discovery`](exts/d3_skill_discovery/d3_skill_discovery/) extension with Isaac Lab
 - ✅ Set up all Python dependencies
 - ✅ Verify the installation
@@ -128,16 +128,16 @@ d3-skill-discovery/
 │       ├── tasks/                      # Environment implementations
 │       │   ├── unsupervised_skill_discovery/  # USD environments
 │       │   └── downstream/             # Evaluation tasks
-│       └── rsl_rl/                     # Configuration utilities
-├── rsl_rl/                             # Reinforcement learning algorithms
-│   └── rsl_rl/
+│       └── d3_rsl_rl/                     # Configuration utilities
+├── d3_rsl_rl/                             # Reinforcement learning algorithms
+│   └── d3_rsl_rl/
 │       ├── algorithms/                 # PPO implementation
 │       ├── intrinsic_motivation/       # USD algorithms (DIAYN, METRA, etc.)
 │       ├── modules/                    # Neural network architectures
 │       ├── runners/                    # Training orchestration
 │       └── storage/                    # Rollout buffer management
 └── scripts/                            # Training and evaluation scripts
-    └── rsl_rl/
+    └── d3_rsl_rl/
         ├── train.py                    # Main training script
         ├── play.py                     # Policy visualization
         └── skill_gui.py                # Interactive skill control GUI
@@ -186,10 +186,10 @@ Evaluation environments for testing learned skills on goal-directed tasks:
 
 ### 🎓 Training Unsupervised Skills
 
-Train a low-level skill discovery model on ANYmal-D using [`scripts/rsl_rl/train.py`](scripts/rsl_rl/train.py):
+Train a low-level skill discovery model on ANYmal-D using [`scripts/d3_rsl_rl/train.py`](scripts/d3_rsl_rl/train.py):
 
 ```bash
-python scripts/rsl_rl/train.py \
+python scripts/d3_rsl_rl/train.py \
   --task Isaac-USD-Anymal-D-v0 \
   --num_envs 2048 \
   --headless \
@@ -212,7 +212,7 @@ python scripts/rsl_rl/train.py \
 | `--max_iterations` | Maximum training iterations | `10000` |
 | `--device` | Compute device: `cuda` or `cpu` | `cuda` |
 
-**See all available arguments:** [`scripts/rsl_rl/cli_args.py`](scripts/rsl_rl/cli_args.py)
+**See all available arguments:** [`scripts/d3_rsl_rl/cli_args.py`](scripts/d3_rsl_rl/cli_args.py)
 
 </details>
 
@@ -223,7 +223,7 @@ python scripts/rsl_rl/train.py \
 For hierarchical skill learning, first train a low-level policy, then:
 
 ```bash
-python scripts/rsl_rl/train.py \
+python scripts/d3_rsl_rl/train.py \
   --task Isaac-HL-USD-Anymal-D-v0 \
   --num_envs 2048 \
   --headless \
@@ -235,10 +235,10 @@ python scripts/rsl_rl/train.py \
 
 ### 🎯 Evaluation on Downstream Tasks
 
-Evaluate learned skills on downstream tasks using [`scripts/rsl_rl/play.py`](scripts/rsl_rl/play.py):
+Evaluate learned skills on downstream tasks using [`scripts/d3_rsl_rl/play.py`](scripts/d3_rsl_rl/play.py):
 
 ```bash
-python scripts/rsl_rl/play.py \
+python scripts/d3_rsl_rl/play.py \
   --task Isaac-Goal-Tracking-Anymal-D-v0 \
   --num_envs 64 \
   --load_run path/to/trained/checkpoint
@@ -251,23 +251,23 @@ python scripts/rsl_rl/play.py \
 
 ```bash
 # Goal tracking on rough terrain
-python scripts/rsl_rl/play.py --task Isaac-Goal-Tracking-Anymal-D-v0 --load_run <checkpoint>
+python scripts/d3_rsl_rl/play.py --task Isaac-Goal-Tracking-Anymal-D-v0 --load_run <checkpoint>
 
 # Foot positioning for manipulation
-python scripts/rsl_rl/play.py --task Isaac-Foot-Tracking-Anymal-D-v0 --load_run <checkpoint>
+python scripts/d3_rsl_rl/play.py --task Isaac-Foot-Tracking-Anymal-D-v0 --load_run <checkpoint>
 
 # Velocity tracking locomotion
-python scripts/rsl_rl/play.py --task Isaac-Velocity-Tracking-Anymal-D-v0 --load_run <checkpoint>
+python scripts/d3_rsl_rl/play.py --task Isaac-Velocity-Tracking-Anymal-D-v0 --load_run <checkpoint>
 ```
 
 </details>
 
 ### 🎨 Interactive Skill Control
 
-Launch the skill GUI to manually control and visualize learned skills using [`scripts/rsl_rl/skill_gui.py`](scripts/rsl_rl/skill_gui.py):
+Launch the skill GUI to manually control and visualize learned skills using [`scripts/d3_rsl_rl/skill_gui.py`](scripts/d3_rsl_rl/skill_gui.py):
 
 ```bash
-python scripts/rsl_rl/skill_gui.py \
+python scripts/d3_rsl_rl/skill_gui.py \
   --checkpoint path/to/trained/model
 ```
 
@@ -282,10 +282,10 @@ Run hyperparameter optimization sweeps using WandB:
 
 #### 1️⃣ Configure Sweep
 
-Edit [`scripts/rsl_rl/sweep/sweep.yaml`](scripts/rsl_rl/sweep/sweep.yaml) to define parameters to optimize:
+Edit [`scripts/d3_rsl_rl/sweep/sweep.yaml`](scripts/d3_rsl_rl/sweep/sweep.yaml) to define parameters to optimize:
 
 ```yaml
-program: scripts/rsl_rl/train.py
+program: scripts/d3_rsl_rl/train.py
 method: bayes
 metric:
   name: train/episode_reward
@@ -300,31 +300,31 @@ parameters:
 
 #### 2️⃣ Initialize Sweep (Once)
 
-Run [`scripts/rsl_rl/sweep/initialize_sweep.py`](scripts/rsl_rl/sweep/initialize_sweep.py):
+Run [`scripts/d3_rsl_rl/sweep/initialize_sweep.py`](scripts/d3_rsl_rl/sweep/initialize_sweep.py):
 
 ```bash
-python scripts/rsl_rl/sweep/initialize_sweep.py --project_name my_sweep
+python scripts/d3_rsl_rl/sweep/initialize_sweep.py --project_name my_sweep
 ```
 
-This writes the sweep ID to [`scripts/rsl_rl/sweep/sweep_ids.json`](scripts/rsl_rl/sweep/sweep_ids.json).
+This writes the sweep ID to [`scripts/d3_rsl_rl/sweep/sweep_ids.json`](scripts/d3_rsl_rl/sweep/sweep_ids.json).
 
 #### 3️⃣ Run Sweep Agents
 
-Run [`scripts/rsl_rl/sweep/sweep.py`](scripts/rsl_rl/sweep/sweep.py):
+Run [`scripts/d3_rsl_rl/sweep/sweep.py`](scripts/d3_rsl_rl/sweep/sweep.py):
 
 ```bash
 # Run on single machine
-python scripts/rsl_rl/sweep/sweep.py --project_name my_sweep
+python scripts/d3_rsl_rl/sweep/sweep.py --project_name my_sweep
 
 # Run on multiple machines (same sweep_id)
-python scripts/rsl_rl/sweep/sweep.py --project_name my_sweep
+python scripts/d3_rsl_rl/sweep/sweep.py --project_name my_sweep
 ```
 
 > **💡 Tip**: You can run multiple agents in parallel on different machines to speed up the sweep.
 
 #### 🖥️ Running on Cluster
 
-To run sweeps on a cluster with Isaac Sim, you need to configure the sweep **before** initializing it. Update your [`sweep.yaml`](scripts/rsl_rl/sweep/sweep.yaml) to use the Isaac Sim Python interpreter:
+To run sweeps on a cluster with Isaac Sim, you need to configure the sweep **before** initializing it. Update your [`sweep.yaml`](scripts/d3_rsl_rl/sweep/sweep.yaml) to use the Isaac Sim Python interpreter:
 
 ```yaml
 command:
@@ -353,7 +353,7 @@ Track your training progress using built-in logging:
 wandb login
 
 # Train with WandB logging
-python scripts/rsl_rl/train.py \
+python scripts/d3_rsl_rl/train.py \
   --task Isaac-USD-Anymal-D-v0 \
   --logger wandb \
   --wandb_project d3-skill-discovery
@@ -376,7 +376,7 @@ python scripts/rsl_rl/train.py \
 
 ```bash
 # Train with TensorBoard logging (default)
-python scripts/rsl_rl/train.py \
+python scripts/d3_rsl_rl/train.py \
   --task Isaac-USD-Anymal-D-v0 \
   --logger tensorboard
 
@@ -392,26 +392,26 @@ tensorboard --logdir logs/
 
 ### 📚 Supported USD Algorithms
 
-The framework builds upon [rsl_rl](https://github.com/leggedrobotics/rsl_rl) (v2.2.0) and uses the [`OnPolicyRunnerUSD`](rsl_rl/rsl_rl/runners/on_policy_runner_usd.py) for training. Currently implemented USD algorithms:
+The framework builds upon [d3_rsl_rl](https://github.com/leggedrobotics/d3_rsl_rl) (v2.2.0) and uses the [`OnPolicyRunnerUSD`](d3_rsl_rl/d3_rsl_rl/runners/on_policy_runner_usd.py) for training. Currently implemented USD algorithms:
 
 | Algorithm | Description | Implementation |
 |-----------|-------------|----------------|
-| **DIAYN** | Diversity is All You Need | [`diayn.py`](rsl_rl/rsl_rl/intrinsic_motivation/diayn.py) |
-| **METRA** | Meta-Reinforcement Learning with Task Abstraction | [`metra.py`](rsl_rl/rsl_rl/intrinsic_motivation/metra.py) |
+| **DIAYN** | Diversity is All You Need | [`diayn.py`](d3_rsl_rl/d3_rsl_rl/intrinsic_motivation/diayn.py) |
+| **METRA** | Meta-Reinforcement Learning with Task Abstraction | [`metra.py`](d3_rsl_rl/d3_rsl_rl/intrinsic_motivation/metra.py) |
 
 **Base RL Algorithm:**
 
-- **PPO**: Proximal Policy Optimization - [`ppo.py`](rsl_rl/rsl_rl/algorithms/ppo.py)
+- **PPO**: Proximal Policy Optimization - [`ppo.py`](d3_rsl_rl/d3_rsl_rl/algorithms/ppo.py)
 
 **Neural Network Modules:**
 
-- **Actor-Critic**: Standard policy network - [`actor_critic.py`](rsl_rl/rsl_rl/modules/actor_critic.py)
-- **Recurrent AC**: LSTM-based policy - [`actor_critic_recurrent.py`](rsl_rl/rsl_rl/modules/actor_critic_recurrent.py)
-- More architectures available in [`rsl_rl/rsl_rl/modules/`](rsl_rl/rsl_rl/modules/)
+- **Actor-Critic**: Standard policy network - [`actor_critic.py`](d3_rsl_rl/d3_rsl_rl/modules/actor_critic.py)
+- **Recurrent AC**: LSTM-based policy - [`actor_critic_recurrent.py`](d3_rsl_rl/d3_rsl_rl/modules/actor_critic_recurrent.py)
+- More architectures available in [`d3_rsl_rl/d3_rsl_rl/modules/`](d3_rsl_rl/d3_rsl_rl/modules/)
 
 ### 🔀 Factorized USD
 
-The [`FACTOR_USD`](rsl_rl/rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) class manages multiple USD algorithms simultaneously, enabling factorized skill discovery across different observation spaces.
+The [`FACTOR_USD`](d3_rsl_rl/d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) class manages multiple USD algorithms simultaneously, enabling factorized skill discovery across different observation spaces.
 
 > **🔬 Research Note**: Factorized USD allows decomposing skill learning into multiple factors (e.g., gait style, navigation behavior), each learned by a separate USD algorithm.
 
@@ -424,11 +424,11 @@ To integrate a new unsupervised skill discovery algorithm, follow these steps:
 
 #### 1️⃣ Implement the Algorithm
 
-Subclass [`BaseSkillDiscovery`](rsl_rl/rsl_rl/intrinsic_motivation/base_skill_discovery.py) in `rsl_rl/intrinsic_motivation/`:
+Subclass [`BaseSkillDiscovery`](d3_rsl_rl/d3_rsl_rl/intrinsic_motivation/base_skill_discovery.py) in `d3_rsl_rl/intrinsic_motivation/`:
 
 ```python
 import torch
-from rsl_rl.intrinsic_motivation.base_skill_discovery import BaseSkillDiscovery
+from d3_rsl_rl.intrinsic_motivation.base_skill_discovery import BaseSkillDiscovery
 
 class MyUSDAlgorithm(BaseSkillDiscovery):
     def reward(self, usd_observations, skill: torch.Tensor, **kwargs) -> torch.Tensor:
@@ -463,7 +463,7 @@ class MyUSDAlgorithm(BaseSkillDiscovery):
 
 #### 2️⃣ Create Configuration
 
-Add a config class to [`exts/d3_skill_discovery/d3_skill_discovery/rsl_rl/rl_cfg.py`](exts/d3_skill_discovery/d3_skill_discovery/rsl_rl/rl_cfg.py):
+Add a config class to [`exts/d3_skill_discovery/d3_skill_discovery/d3_rsl_rl/rl_cfg.py`](exts/d3_skill_discovery/d3_skill_discovery/d3_rsl_rl/rl_cfg.py):
 
 ```python
 @configclass
@@ -475,7 +475,7 @@ class MyUSDAlgorithmCfg:
 
 #### 3️⃣ Update FACTOR_USD
 
-Extend the factory class in [`rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py`](rsl_rl/rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) to initialize your algorithm.
+Extend the factory class in [`d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py`](d3_rsl_rl/d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) to initialize your algorithm.
 
 #### 4️⃣ Configure Environment
 
@@ -586,7 +586,7 @@ python -c "import isaaclab; print(isaaclab.__version__)"
 
 **Solution**: Reduce the number of parallel environments:
 ```bash
-python scripts/rsl_rl/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 1024  # or lower
+python scripts/d3_rsl_rl/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 1024  # or lower
 ```
 
 ---
@@ -610,7 +610,7 @@ python scripts/rsl_rl/train.py --task Isaac-USD-Anymal-D-v0 --num_envs 1024  # o
 ```bash
 wandb login  # Enter your API key
 # OR use tensorboard instead
-python scripts/rsl_rl/train.py --logger tensorboard
+python scripts/d3_rsl_rl/train.py --logger tensorboard
 ```
 
 </details>
@@ -646,6 +646,6 @@ This project incorporates code from the following open-source projects:
 | Project | License | Details |
 |---------|---------|---------|
 | **Isaac Lab** | BSD-3-Clause | [View License](docs/licenses/isaaclab-license.txt) |
-| **rsl_rl** | BSD-3-Clause | [View License](docs/licenses/rsl_rl-license.txt) |
+| **d3_rsl_rl** | BSD-3-Clause | [View License](docs/licenses/d3_rsl_rl-license.txt) |
 
 </details>

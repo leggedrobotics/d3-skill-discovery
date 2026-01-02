@@ -8,11 +8,11 @@
 
 ## 📖 Overview
 
-This directory contains an **extended version of [rsl_rl](https://github.com/leggedrobotics/rsl_rl)** (v[2.2.0](https://github.com/leggedrobotics/rsl_rl/releases/tag/v2.2.0)), the Robotic Systems Lab's reinforcement learning library, with added support for **unsupervised skill discovery (USD) algorithms**.
+This directory contains an **extended version of [d3_rsl_rl](https://github.com/leggedrobotics/d3_rsl_rl)** (v[2.2.0](https://github.com/leggedrobotics/d3_rsl_rl/releases/tag/v2.2.0)), the Robotic Systems Lab's reinforcement learning library, with added support for **unsupervised skill discovery (USD) algorithms**.
 
 ### 🔗 Based on RSL-RL
 
-[RSL-RL](https://github.com/leggedrobotics/rsl_rl) is a lightweight and modular library for on-policy reinforcement learning, originally developed at ETH Zurich's Robotic Systems Lab. It provides efficient implementations of PPO and related algorithms optimized for robot learning.
+[RSL-RL](https://github.com/leggedrobotics/d3_rsl_rl) is a lightweight and modular library for on-policy reinforcement learning, originally developed at ETH Zurich's Robotic Systems Lab. It provides efficient implementations of PPO and related algorithms optimized for robot learning.
 
 ### ✨ What We Extend
 
@@ -20,11 +20,11 @@ This fork adds the following key capabilities to the original RSL-RL:
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| 🧠 **USD Framework** | Abstract base class for implementing skill discovery algorithms | [`base_skill_discovery.py`](rsl_rl/intrinsic_motivation/base_skill_discovery.py) |
-| 🎯 **DIAYN** | Diversity is All You Need implementation | [`diayn.py`](rsl_rl/intrinsic_motivation/diayn.py) |
-| 🎨 **METRA** | Meta-Reinforcement Learning with Task Abstraction | [`metra.py`](rsl_rl/intrinsic_motivation/metra.py) |
-| 🔀 **Factorized USD** | Multi-algorithm manager for factorized skill learning | [`factoized_unsupervised_skill_discovery.py`](rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) |
-| 🏃 **USD Runner** | Extended on-policy runner with USD integration | [`on_policy_runner_usd.py`](rsl_rl/runners/on_policy_runner_usd.py) |
+| 🧠 **USD Framework** | Abstract base class for implementing skill discovery algorithms | [`base_skill_discovery.py`](d3_rsl_rl/intrinsic_motivation/base_skill_discovery.py) |
+| 🎯 **DIAYN** | Diversity is All You Need implementation | [`diayn.py`](d3_rsl_rl/intrinsic_motivation/diayn.py) |
+| 🎨 **METRA** | Meta-Reinforcement Learning with Task Abstraction | [`metra.py`](d3_rsl_rl/intrinsic_motivation/metra.py) |
+| 🔀 **Factorized USD** | Multi-algorithm manager for factorized skill learning | [`factoized_unsupervised_skill_discovery.py`](d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) |
+| 🏃 **USD Runner** | Extended on-policy runner with USD integration | [`on_policy_runner_usd.py`](d3_rsl_rl/runners/on_policy_runner_usd.py) |
 
 All original RSL-RL functionality (PPO, actor-critic modules, storage, etc.) remains intact and unchanged.
 
@@ -50,7 +50,7 @@ can be integrated into this framework.
 
 ### Base Class: `BaseSkillDiscovery`
 
-All USD algorithms inherit from [`BaseSkillDiscovery`](rsl_rl/intrinsic_motivation/base_skill_discovery.py), which defines:
+All USD algorithms inherit from [`BaseSkillDiscovery`](d3_rsl_rl/intrinsic_motivation/base_skill_discovery.py), which defines:
 
 **Required Methods:**
 
@@ -68,7 +68,7 @@ All USD algorithms inherit from [`BaseSkillDiscovery`](rsl_rl/intrinsic_motivati
 
 ### Factorized Learning: `FACTOR_USD`
 
-The [`FACTOR_USD`](rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) class enables **simultaneous training of multiple USD algorithms** on different observation subspaces. This allows decomposing skill learning into factors (e.g., separate gait style from navigation behavior).
+The [`FACTOR_USD`](d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) class enables **simultaneous training of multiple USD algorithms** on different observation subspaces. This allows decomposing skill learning into factors (e.g., separate gait style from navigation behavior).
 
 ---
 
@@ -94,7 +94,7 @@ usd_alg_extra_cfg: dict[str, dict]
 
 **Algorithm Configuration:**
 
-Your agent config must include a `usd` field of type `RslRlFactorizedUSDAlgorithmCfg` (see [`rl_cfg.py`](../exts/d3_skill_discovery/d3_skill_discovery/rsl_rl/rl_cfg.py)).
+Your agent config must include a `usd` field of type `RslRlFactorizedUSDAlgorithmCfg` (see [`rl_cfg.py`](../exts/d3_skill_discovery/d3_skill_discovery/d3_rsl_rl/rl_cfg.py)).
 
 ---
 
@@ -104,11 +104,11 @@ Want to implement your own skill discovery method? Follow these steps:
 
 ### Step 1: Implement the Algorithm
 
-Create a new file in [`rsl_rl/intrinsic_motivation/`](rsl_rl/intrinsic_motivation/) and subclass `BaseSkillDiscovery`:
+Create a new file in [`d3_rsl_rl/intrinsic_motivation/`](d3_rsl_rl/intrinsic_motivation/) and subclass `BaseSkillDiscovery`:
 
 ```python
 import torch
-from rsl_rl.intrinsic_motivation.base_skill_discovery import BaseSkillDiscovery
+from d3_rsl_rl.intrinsic_motivation.base_skill_discovery import BaseSkillDiscovery
 
 class MyUSDAlgorithm(BaseSkillDiscovery):
     def reward(self, usd_observations, skill: torch.Tensor, **kwargs) -> torch.Tensor:
@@ -131,7 +131,7 @@ class MyUSDAlgorithm(BaseSkillDiscovery):
 
 ### Step 2: Add Configuration Class
 
-In [`rl_cfg.py`](../exts/d3_skill_discovery/d3_skill_discovery/rsl_rl/rl_cfg.py), define your algorithm's config:
+In [`rl_cfg.py`](../exts/d3_skill_discovery/d3_skill_discovery/d3_rsl_rl/rl_cfg.py), define your algorithm's config:
 
 ```python
 @configclass
@@ -146,7 +146,7 @@ Then add it to `RslRlFactorizedUSDAlgorithmCfg`.
 
 ### Step 3: Register in `FACTOR_USD`
 
-Extend [`factoized_unsupervised_skill_discovery.py`](rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) to instantiate your algorithm when specified in the environment config.
+Extend [`factoized_unsupervised_skill_discovery.py`](d3_rsl_rl/intrinsic_motivation/factoized_unsupervised_skill_discovery.py) to instantiate your algorithm when specified in the environment config.
 
 ### Step 4: Update Environment Config
 
@@ -165,10 +165,10 @@ usd_alg_extra_cfg = {"my_factor": {"learning_rate": 1e-3}}
 
 ## 📚 Additional Resources
 
-- **Original RSL-RL Repository**: [github.com/leggedrobotics/rsl_rl](https://github.com/leggedrobotics/rsl_rl)
+- **Original RSL-RL Repository**: [github.com/leggedrobotics/d3_rsl_rl](https://github.com/leggedrobotics/d3_rsl_rl)
 - **Main D3 README**: [../README.md](../README.md) — Full project documentation
 - **Example Environments**: [`exts/d3_skill_discovery/d3_skill_discovery/tasks/`](../exts/d3_skill_discovery/d3_skill_discovery/tasks/)
-- **Training Scripts**: [`scripts/rsl_rl/`](../scripts/rsl_rl/)
+- **Training Scripts**: [`scripts/d3_rsl_rl/`](../scripts/d3_rsl_rl/)
 
 ---
 

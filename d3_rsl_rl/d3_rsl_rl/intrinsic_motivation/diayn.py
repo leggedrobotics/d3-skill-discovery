@@ -11,9 +11,9 @@ from collections import deque
 from torch.distributions import Categorical, Dirichlet, Normal
 from typing import Literal
 
-from rsl_rl.modules import DictFlattener, SimBa
-from rsl_rl.utils import mean_gradient_norm
-from rsl_rl.utils.mirroring import remove_symmetry_subspaces
+from d3_rsl_rl.modules import DictFlattener, SimBa
+from d3_rsl_rl.utils import mean_gradient_norm
+from d3_rsl_rl.utils.mirroring import remove_symmetry_subspaces
 
 from .base_skill_discovery import BaseSkillDiscovery
 from .distributions import vmf_log_prob

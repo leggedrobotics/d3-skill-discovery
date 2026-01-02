@@ -15,7 +15,7 @@ from torch.distributions import Normal
 from torch.func import functional_call, stack_module_state, vmap
 from typing import Literal
 
-from rsl_rl.utils.timer import TIMER_CUMULATIVE
+from d3_rsl_rl.utils.timer import TIMER_CUMULATIVE
 
 from .body_transformer import ActionDetokenizer, BodyTransformer, ValueDetokenizer
 

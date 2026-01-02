@@ -55,8 +55,8 @@ from datetime import datetime
 
 # Import extensions to set up environment tasks
 import d3_skill_discovery.tasks  # noqa: F401
-from d3_skill_discovery.rsl_rl import RslCRlOnPolicyRunnerCfg
-from rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
+from d3_rsl_rl.runners import OnPolicyRunner, UsdOnPolicyRunner
+from d3_skill_discovery.d3_rsl_rl import RslCRlOnPolicyRunnerCfg
 
 from isaaclab.envs import (
     DirectMARLEnv,
@@ -117,7 +117,7 @@ def main(
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
 
     # specify directory for logging experiments
-    log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
+    log_root_path = os.path.join("logs", "d3_rsl_rl", agent_cfg.experiment_name)
     log_root_path = os.path.abspath(log_root_path)
     print(f"[INFO] Logging experiment in directory: {log_root_path}")
     # specify directory for logging runs: {time-stamp}_{run_name}

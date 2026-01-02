@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import torch
 
-from rsl_rl.utils import split_and_pad_trajectories
+from d3_rsl_rl.utils import split_and_pad_trajectories
 
 
 class RolloutStorageOG:
