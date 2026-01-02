@@ -88,7 +88,7 @@ conda activate d3_env
 ### 3️⃣ Install Isaac Lab Extensions
 
 ```bash
-./isaaclab.sh --install none
+./isaaclab.sh --install
 ```
 
 ### 4️⃣ Install D3 Extension
