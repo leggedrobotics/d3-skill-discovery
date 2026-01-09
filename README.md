@@ -492,7 +492,7 @@ tensorboard --logdir logs/
 
 ### 📚 Supported USD Algorithms
 
-The framework builds upon [d3_rsl_rl](https://github.com/leggedrobotics/rsl_rl) (v2.2.0) and uses the [`OnPolicyRunnerUSD`](source/d3_rsl_rl/d3_rsl_rl/runners/on_policy_runner_usd.py) for training. Currently implemented USD algorithms:
+The framework builds upon [rsl_rl](https://github.com/leggedrobotics/rsl_rl) (v2.2.0) and uses the [`OnPolicyRunnerUSD`](source/d3_rsl_rl/d3_rsl_rl/runners/on_policy_runner_usd.py) for training. Currently implemented USD algorithms:
 
 | Algorithm | Description | Implementation |
 |-----------|-------------|----------------|
@@ -746,6 +746,6 @@ This project incorporates code from the following open-source projects:
 | Project | License | Details |
 |---------|---------|---------|
 | **Isaac Lab** | BSD-3-Clause | [View License](docs/licenses/isaaclab-license.txt) |
-| **d3_rsl_rl** | BSD-3-Clause | [View License](docs/licenses/d3_rsl_rl-license.txt) |
+| **rsl_rl** | BSD-3-Clause | [View License](docs/licenses/rsl_rl-license.txt) |
 
 </details>
